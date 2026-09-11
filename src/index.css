@@ -1,0 +1,151 @@
+/* C++ Odyssey Design System & Modern Cyberpunk/Developer Theme */
+
+:root {
+  --bg-primary: #070a12;
+  --bg-secondary: #0e1424;
+  --bg-card: #131b2e;
+  --bg-card-hover: #1b263f;
+  --bg-input: #0a0e1a;
+  
+  --border-subtle: #1e293b;
+  --border-focus: #38bdf8;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --cyan-accent: #00d2ff;
+  --cyan-glow: rgba(0, 210, 255, 0.35);
+  
+  --emerald-accent: #10b981;
+  --emerald-glow: rgba(16, 185, 129, 0.35);
+  
+  --rose-accent: #f43f5e;
+  --rose-glow: rgba(244, 63, 94, 0.35);
+  
+  --amber-accent: #f59e0b;
+  --purple-accent: #a855f7;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.06) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(16, 185, 129, 0.04) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+code, pre, .font-mono {
+  font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0f19;
+}
+::-webkit-scrollbar-thumb {
+  background: #25334d;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+/* Glassmorphism & Cards */
+.glass-panel {
+  background: rgba(19, 27, 46, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.glass-card {
+  background: rgba(14, 20, 36, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(0, 210, 255, 0.15);
+}
+
+/* Pointer Line Animations */
+@keyframes dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.pointer-arrow-animated {
+  stroke-dasharray: 6, 4;
+  animation: dash 1s linear infinite;
+}
+
+/* Pulse highlight for active debugging line */
+@keyframes activeLinePulse {
+  0%, 100% {
+    background-color: rgba(56, 189, 248, 0.18);
+    border-left-color: #38bdf8;
+  }
+  50% {
+    background-color: rgba(56, 189, 248, 0.28);
+    border-left-color: #00d2ff;
+  }
+}
+
+.active-execution-line {
+  animation: activeLinePulse 2s ease-in-out infinite;
+}
+
+/* Badges & XP */
+.xp-pill {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.3));
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+
+/* Memory block animations */
+@keyframes blockSpawn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.memory-block-enter {
+  animation: blockSpawn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Syntax Highlighting Styles */
+.token-keyword { color: #f43f5e; font-weight: 600; }
+.token-type { color: #38bdf8; font-weight: 600; }
+.token-number { color: #f59e0b; }
+.token-string { color: #10b981; }
+.token-comment { color: #64748b; font-style: italic; }
+.token-function { color: #a855f7; font-weight: 500; }
+.token-operator { color: #38bdf8; }
+.token-variable { color: #e2e8f0; }
+.token-macro { color: #ec4899; }
