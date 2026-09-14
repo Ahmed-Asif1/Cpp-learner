@@ -11,6 +11,7 @@ import { NustCurriculumView } from '../src/components/nust/NustCurriculumView';
 import { CheatSheetModal } from '../src/components/layout/CheatSheetModal';
 import { AchievementsModal } from '../src/components/layout/AchievementsModal';
 import { UsernameModal } from '../src/components/layout/UsernameModal';
+import { TutorialModal } from '../src/components/layout/TutorialModal';
 import { calculateLevel, loadProgress, saveProgress, loadProgressFromDB, saveProgressToDB, mergeProgress, DEFAULT_PROGRESS } from '../src/services/storage';
 import { UserProgress } from '../src/types';
 import { soundManager } from '../src/services/soundEffects';
@@ -22,6 +23,7 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<NavTab>('nust');
   const [isCheatSheetOpen, setIsCheatSheetOpen] = useState<boolean>(false);
   const [isAchievementsOpen, setIsAchievementsOpen] = useState<boolean>(false);
+  const [isTutorialOpen, setIsTutorialOpen] = useState<boolean>(false);
   const [sandboxPresetCode, setSandboxPresetCode] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
   const [showUsernameModal, setShowUsernameModal] = useState<boolean>(false);
@@ -127,6 +129,13 @@ export default function HomePage() {
       const newLevelInfo = calculateLevel(newXp);
       const oldLevel = calculateLevel(prev.xp).level;
 
+      // Track quest completion for project/DSA modules (m6, m7)
+      const currentQuests = prev.completedQuests || [];
+      const isQuestModule = lessonId.startsWith('m6') || lessonId.startsWith('m7');
+      const updatedQuests = isQuestModule && !currentQuests.includes(lessonId)
+        ? [...currentQuests, lessonId]
+        : currentQuests;
+
       if (newLevelInfo.level > oldLevel) {
         soundManager.playLevelUp();
         try {
@@ -141,6 +150,7 @@ export default function HomePage() {
       const updated: UserProgress = {
         ...prev,
         completedLessons: updatedLessons,
+        completedQuests: updatedQuests,
         xp: newXp,
         level: newLevelInfo.level,
         lastActive: new Date().toISOString(),
@@ -242,10 +252,16 @@ export default function HomePage() {
   const handleOpenInSandbox = useCallback((code: string) => {
     setSandboxPresetCode(code);
     setActiveTab('sandbox');
+    // Track lab launch count
+    setProgress((prev) => {
+      const updated = { ...prev, totalLabLaunches: (prev.totalLabLaunches || 0) + 1 };
+      persistProgress(updated);
+      return updated;
+    });
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, []);
+  }, [persistProgress]);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#070a12] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
@@ -267,6 +283,7 @@ export default function HomePage() {
         onToggleSound={handleToggleSound}
         onOpenAchievements={() => setIsAchievementsOpen(true)}
         onOpenCheatSheet={() => setIsCheatSheetOpen(true)}
+        onOpenTutorial={() => setIsTutorialOpen(true)}
         username={mounted ? username : null}
         onOpenUsernameModal={() => setShowUsernameModal(true)}
       />
@@ -274,7 +291,10 @@ export default function HomePage() {
       {/* Main Content View Switcher */}
       <main className="flex-1">
         {activeTab === 'nust' && (
-          <NustCurriculumView onOpenInSandbox={handleOpenInSandbox} />
+          <NustCurriculumView
+            onOpenInSandbox={handleOpenInSandbox}
+            onOpenTutorial={() => setIsTutorialOpen(true)}
+          />
         )}
 
         {activeTab === 'curriculum' && (
@@ -333,6 +353,18 @@ export default function HomePage() {
       {showUsernameModal && (
         <UsernameModal onUsernameSet={handleUsernameSet} />
       )}
+
+      <TutorialModal
+        isOpen={isTutorialOpen}
+        onClose={() => setIsTutorialOpen(false)}
+        onSelectTab={(tab) => {
+          setActiveTab(tab);
+          setIsTutorialOpen(false);
+          if (typeof window !== 'undefined') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }}
+      />
     </div>
   );
 }

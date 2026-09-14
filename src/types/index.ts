@@ -170,6 +170,8 @@ export interface UserProgress {
   completedLessons: string[];
   completedChallenges: string[];
   completedExercises?: string[];
+  completedQuests?: string[];
+  totalLabLaunches?: number;
   unlockedBadges: string[];
   soundEnabled: boolean;
   streak: number;

@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
-import { QuizQuestion } from '../../types';
+import React, { useState, useMemo } from 'react';
+import { QuizQuestion, QuizOption } from '../../types';
 import { CheckCircle2, XCircle, Award, ArrowRight, RotateCcw, X, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { soundManager } from '../../services/soundEffects';
+
+/** Fisher-Yates shuffle — returns a new array, does not mutate */
+function shuffleArray<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 interface QuizModalProps {
   questions: QuizQuestion[];
@@ -23,7 +33,14 @@ export const QuizModal: React.FC<QuizModalProps> = ({
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
 
-  const currentQ = questions[currentIndex];
+  // Shuffle each question's options once on mount — stable for the whole session
+  const shuffledQuestions = useMemo<QuizQuestion[]>(
+    () => questions.map((q) => ({ ...q, options: shuffleArray(q.options) })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const currentQ = shuffledQuestions[currentIndex];
 
   const handleSelect = (idx: number) => {
     if (isAnswered) return;
@@ -41,13 +58,13 @@ export const QuizModal: React.FC<QuizModalProps> = ({
   };
 
   const handleNext = () => {
-    if (currentIndex < questions.length - 1) {
+    if (currentIndex < shuffledQuestions.length - 1) {
       setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
       setIsAnswered(false);
     } else {
       setIsFinished(true);
-      const totalEarnedXp = questions.reduce((acc, q) => acc + q.xpReward, 0);
+      const totalEarnedXp = shuffledQuestions.reduce((acc, q) => acc + q.xpReward, 0);
       onComplete(totalEarnedXp);
       soundManager.playLevelUp();
       confetti({
@@ -75,7 +92,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({
             <div className="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
               <div>
                 <span className="text-xs font-mono text-cyan-400 font-semibold tracking-wider uppercase tabular-nums">
-                  Checkpoint Quiz • Question {currentIndex + 1} of {questions.length}
+                  Checkpoint Quiz • Question {currentIndex + 1} of {shuffledQuestions.length}
                 </span>
                 <h3 className="text-base font-bold text-white tracking-tight mt-0.5">{lessonTitle}</h3>
               </div>
@@ -160,14 +177,14 @@ export const QuizModal: React.FC<QuizModalProps> = ({
             </div>
             <h3 className="text-xl font-bold text-white tracking-tight mb-1">Knowledge Verified!</h3>
             <p className="text-xs text-zinc-400 mb-6 tabular-nums">
-              You scored {score} of {questions.length} questions correctly.
+              You scored {score} of {shuffledQuestions.length} questions correctly.
             </p>
 
             <div className="bg-zinc-900/80 border border-zinc-800 rounded-md p-4 max-w-xs mx-auto mb-6 flex items-center justify-around tabular-nums">
               <div>
                 <div className="text-xs text-zinc-400">XP Earned</div>
                 <div className="text-lg font-bold text-amber-400">
-                  +{questions.reduce((a, b) => a + b.xpReward, 0)} XP
+                  +{shuffledQuestions.reduce((a, b) => a + b.xpReward, 0)} XP
                 </div>
               </div>
               <div className="w-px h-8 bg-zinc-800" />

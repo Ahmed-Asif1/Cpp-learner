@@ -17,6 +17,8 @@ import {
   Award,
   BookMarked,
   Terminal,
+  HelpCircle,
+  Compass,
 } from 'lucide-react';
 import {
   NUST_BSCS_CURRICULUM,
@@ -27,6 +29,7 @@ import { soundManager } from '../../services/soundEffects';
 
 interface NustCurriculumViewProps {
   onOpenInSandbox?: (starterCode: string) => void;
+  onOpenTutorial?: () => void;
 }
 
 const COURSE_SAMPLE_CODE: Record<string, string> = {
@@ -157,6 +160,7 @@ int main() {
 
 export const NustCurriculumView: React.FC<NustCurriculumViewProps> = ({
   onOpenInSandbox,
+  onOpenTutorial,
 }) => {
   const [selectedSemester, setSelectedSemester] = useState<number | 'all'>('all');
   const [filterCppOnly, setFilterCppOnly] = useState<boolean>(false);
@@ -204,9 +208,24 @@ export const NustCurriculumView: React.FC<NustCurriculumViewProps> = ({
       <div className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <div className="space-y-1.5 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-zinc-800/80 border border-zinc-700/60 text-zinc-300 text-xs font-mono">
-              <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
-              <span>National University of Sciences & Technology (NUST)</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-zinc-800/80 border border-zinc-700/60 text-zinc-300 text-xs font-mono">
+                <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
+                <span>National University of Sciences & Technology (NUST)</span>
+              </div>
+              {onOpenTutorial && (
+                <button
+                  onClick={() => {
+                    soundManager.playClick();
+                    onOpenTutorial();
+                  }}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-cyan-950/40 hover:bg-cyan-900/40 border border-cyan-500/30 text-cyan-300 hover:text-cyan-200 text-xs font-medium transition-colors cursor-pointer"
+                  title="Open Platform Guide & Roadmap"
+                >
+                  <Compass className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Start Tutorial & Guide</span>
+                </button>
+              )}
             </div>
             <h1 className="text-xl sm:text-2xl font-bold text-zinc-100 tracking-tight">
               SEECS BSCS Academic Hub & Degree Pathway
@@ -217,23 +236,26 @@ export const NustCurriculumView: React.FC<NustCurriculumViewProps> = ({
             </p>
           </div>
 
-          {/* Quick Metrics Cards - Tabular Numerals & High Density */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full lg:w-auto shrink-0">
-            <div className="bg-zinc-950/80 border border-zinc-800 rounded-md p-2.5 text-center">
-              <div className="text-xl font-bold text-zinc-100 font-mono tabular-nums">134</div>
-              <div className="text-[11px] text-zinc-400 font-medium">Total Credits</div>
+          {/* Quick Metrics — Inline Text Row */}
+          <div className="flex items-center gap-0 w-full lg:w-auto shrink-0 flex-wrap sm:flex-nowrap">
+            <div className="px-3 py-1.5 text-center">
+              <div className="text-lg font-bold text-zinc-100 font-mono tabular-nums">134</div>
+              <div className="text-[10px] text-zinc-500 font-medium">Total Credits</div>
             </div>
-            <div className="bg-zinc-950/80 border border-zinc-800 rounded-md p-2.5 text-center">
-              <div className="text-xl font-bold text-emerald-400 font-mono tabular-nums">8</div>
-              <div className="text-[11px] text-zinc-400 font-medium">Semesters (4 Yrs)</div>
+            <div className="hidden sm:block w-px h-8 bg-zinc-800" />
+            <div className="px-3 py-1.5 text-center">
+              <div className="text-lg font-bold text-emerald-400 font-mono tabular-nums">8</div>
+              <div className="text-[10px] text-zinc-500 font-medium">Semesters (4 Yrs)</div>
             </div>
-            <div className="bg-zinc-950/80 border border-zinc-800 rounded-md p-2.5 text-center">
-              <div className="text-xl font-bold text-amber-400 font-mono tabular-nums">8+</div>
-              <div className="text-[11px] text-zinc-400 font-medium">C++ Courses</div>
+            <div className="hidden sm:block w-px h-8 bg-zinc-800" />
+            <div className="px-3 py-1.5 text-center">
+              <div className="text-lg font-bold text-amber-400 font-mono tabular-nums">8+</div>
+              <div className="text-[10px] text-zinc-500 font-medium">C++ Courses</div>
             </div>
-            <div className="bg-zinc-950/80 border border-zinc-800 rounded-md p-2.5 text-center">
-              <div className="text-xl font-bold text-purple-400 font-mono tabular-nums">Level-II</div>
-              <div className="text-[11px] text-zinc-400 font-medium">NCEAC OBE Accr.</div>
+            <div className="hidden sm:block w-px h-8 bg-zinc-800" />
+            <div className="px-3 py-1.5 text-center">
+              <div className="text-lg font-bold text-purple-400 font-mono tabular-nums">Level-II</div>
+              <div className="text-[10px] text-zinc-500 font-medium">NCEAC OBE Accr.</div>
             </div>
           </div>
         </div>

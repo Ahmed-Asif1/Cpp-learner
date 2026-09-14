@@ -2,6 +2,292 @@ import { Badge, BugChallenge, Module } from '../types';
 
 export const CURRICULUM_MODULES: Module[] = [
   {
+    id: 'm0',
+    title: 'First Steps: Zero to Running',
+    tagline: 'Never written C++ before? Start here. Write and run your first programs in minutes.',
+    iconName: 'Rocket',
+    accentColor: '#22d3ee',
+    description: 'Absolute beginner friendly. Write your first C++ program from scratch, understand every single line of code, and build a working calculator — no prior experience required.',
+    lessons: [
+      {
+        id: 'm0-l1',
+        moduleId: 'm0',
+        title: 'Your First C++ Program — Line by Line',
+        subtitle: 'Anatomy of Hello World: what every single character means',
+        durationMinutes: 5,
+        xpReward: 50,
+        content: {
+          hook: 'Every C++ developer in the world started by writing the same 6 lines of code. Let\'s write yours — and understand exactly what each piece does.',
+          mentalModel: 'A C++ program is like a recipe. You list your ingredients at the top (#include), name the dish (main), and write the cooking steps inside curly braces {}. The computer follows your steps from top to bottom.',
+          explanation: [
+            '`#include <iostream>` tells the compiler to load the input/output tools (like cout for printing).',
+            '`int main()` is the entry point — every C++ program MUST have a main function. This is where execution begins.',
+            '`std::cout << "text"` prints text to the screen. Think of `<<` as a pipe pushing text toward the screen.',
+            '`return 0;` at the end of main tells the operating system "the program finished successfully".',
+          ],
+          codeExample: `#include <iostream>
+
+int main() {
+    // This prints a message to the screen
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}`,
+          examples: [
+            {
+              title: 'Example 1: Printing Multiple Lines',
+              description: 'You can print as many lines as you like by repeating std::cout.',
+              code: `#include <iostream>
+
+int main() {
+    std::cout << "Line 1: I am learning C++." << std::endl;
+    std::cout << "Line 2: This is my second line." << std::endl;
+    std::cout << "Line 3: C++ is powerful!" << std::endl;
+    return 0;
+}`,
+              expectedOutput: 'Line 1: I am learning C++.\nLine 2: This is my second line.\nLine 3: C++ is powerful!\n',
+              explanation: 'Each std::cout statement prints one line. std::endl moves to the next line — just like pressing Enter.',
+            },
+            {
+              title: 'Example 2: Printing Numbers',
+              description: 'cout can print numbers too, not just text!',
+              code: `#include <iostream>
+
+int main() {
+    std::cout << "My age is: " << 20 << std::endl;
+    std::cout << "The year is: " << 2026 << std::endl;
+    std::cout << "Two plus two equals: " << 2 + 2 << std::endl;
+    return 0;
+}`,
+              expectedOutput: 'My age is: 20\nThe year is: 2026\nTwo plus two equals: 4\n',
+              explanation: 'You can mix text (in quotes) and numbers in a single cout line using << between each piece.',
+            },
+          ],
+          deepDive: {
+            title: 'What does #include do?',
+            content: '`#include <iostream>` is a preprocessor directive. Before the compiler sees your code, the preprocessor runs and literally copies the entire contents of the iostream file into your program. That\'s how std::cout becomes available — it\'s defined in that file.',
+          },
+          interactivePrompt: {
+            task: 'Modify the program to print your name and university. Run it and see your output!',
+            hint: 'Replace the text inside the quote marks "..." with your own message.',
+            starterCode: `#include <iostream>
+
+int main() {
+    std::cout << "Hello! My name is ____" << std::endl;
+    std::cout << "I study at ____" << std::endl;
+    return 0;
+}`,
+          },
+        },
+        quiz: [
+          {
+            id: 'q0-1',
+            category: 'basics',
+            prompt: 'What does `std::cout` do in a C++ program?',
+            xpReward: 20,
+            options: [
+              {
+                text: 'It reads input from the keyboard.',
+                isCorrect: false,
+                explanation: 'That\'s std::cin! std::cout is for output, not input.',
+              },
+              {
+                text: 'It deletes memory from the heap.',
+                isCorrect: false,
+                explanation: 'Memory deletion is done with the delete keyword.',
+              },
+              {
+                text: 'It prints text or values to the screen.',
+                isCorrect: true,
+                explanation: 'Correct! std::cout stands for "character output" — it sends text to the terminal/screen.',
+              },
+              {
+                text: 'It compiles your C++ code.',
+                isCorrect: false,
+                explanation: 'Compilation is done by the compiler (g++, clang++), not by cout.',
+              },
+            ],
+          },
+          {
+            id: 'q0-2',
+            category: 'basics',
+            prompt: 'Which function must every C++ program have as its starting point?',
+            xpReward: 20,
+            options: [
+              {
+                text: 'start()',
+                isCorrect: false,
+                explanation: 'There is no start() function in standard C++.',
+              },
+              {
+                text: 'main()',
+                isCorrect: true,
+                explanation: 'Correct! Every C++ program must have a main() function — it\'s where the OS begins execution.',
+              },
+              {
+                text: 'begin()',
+                isCorrect: false,
+                explanation: 'begin() is used for iterators/containers, not as a program entry point.',
+              },
+              {
+                text: 'run()',
+                isCorrect: false,
+                explanation: 'There is no run() entry point in standard C++.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'm0-l2',
+        moduleId: 'm0',
+        title: 'Variables & Your First Calculator',
+        subtitle: 'Storing numbers in memory and doing arithmetic',
+        durationMinutes: 7,
+        xpReward: 75,
+        content: {
+          hook: 'Programs become useful when they can remember information. A variable is simply a named box in your computer\'s memory that holds a value. Let\'s store some numbers and build a working calculator.',
+          mentalModel: 'Imagine variables as labeled sticky notes on your desk. You write a label (the name) and a value (the data). Whenever you need that number, you just refer to its label — the computer finds it for you.',
+          explanation: [
+            'A variable declaration in C++ has three parts: the TYPE, the NAME, and the VALUE. Example: `int score = 100;` — type is int (whole number), name is score, value is 100.',
+            'Common types for beginners: `int` (whole numbers like 5, -3, 100), `double` (decimal numbers like 3.14, 2.5), `std::string` (text like "hello").',
+            'You can do math directly: `+` for addition, `-` for subtraction, `*` for multiplication, `/` for division.',
+            'Variables must be declared before you use them. Once declared, you can change their value at any time: `score = 200;`',
+          ],
+          codeExample: `#include <iostream>
+
+int main() {
+    // Declare two integer variables
+    int firstNumber = 15;
+    int secondNumber = 7;
+
+    // Perform calculations
+    int sum = firstNumber + secondNumber;
+    int product = firstNumber * secondNumber;
+
+    // Print the results
+    std::cout << "Sum: " << sum << std::endl;
+    std::cout << "Product: " << product << std::endl;
+    return 0;
+}`,
+          examples: [
+            {
+              title: 'Example 1: Temperature Converter',
+              description: 'Convert Celsius to Fahrenheit using a formula with variables.',
+              code: `#include <iostream>
+
+int main() {
+    double celsius = 100.0;
+    double fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
+
+    std::cout << celsius << " Celsius = ";
+    std::cout << fahrenheit << " Fahrenheit" << std::endl;
+    return 0;
+}`,
+              expectedOutput: '100 Celsius = 212 Fahrenheit\n',
+              explanation: 'We use double (decimal type) for temperature since it needs fractional precision. The formula is applied in one expression.',
+            },
+            {
+              title: 'Example 2: Circle Area Calculator',
+              description: 'Calculate the area of a circle given its radius.',
+              code: `#include <iostream>
+
+int main() {
+    double radius = 5.0;
+    double pi = 3.14159;
+    double area = pi * radius * radius;
+
+    std::cout << "Radius: " << radius << std::endl;
+    std::cout << "Area: " << area << std::endl;
+    return 0;
+}`,
+              expectedOutput: 'Radius: 5\nArea: 78.5397\n',
+              explanation: 'pi * r * r computes the area. We store the intermediate value in an area variable for clarity.',
+            },
+          ],
+          deepDive: {
+            title: 'int vs double — when to use which?',
+            content: 'Use `int` when you know the value will always be a whole number (counts, indices, ages). Use `double` when you need decimals (prices, measurements, percentages). Mixing them can cause truncation: `int x = 7 / 2;` gives 3, not 3.5 — integer division drops the remainder!',
+          },
+          interactivePrompt: {
+            task: 'Extend the calculator to also compute the difference (firstNumber - secondNumber) and the quotient (firstNumber / secondNumber). Print both results.',
+            hint: 'Declare two new variables: int diff and int quotient. Then subtract and divide.',
+            starterCode: `#include <iostream>
+
+int main() {
+    int firstNumber = 20;
+    int secondNumber = 4;
+
+    int sum = firstNumber + secondNumber;
+    // Add difference and quotient here...
+
+    std::cout << "Sum: " << sum << std::endl;
+    // Print your new results here...
+    return 0;
+}`,
+          },
+        },
+        quiz: [
+          {
+            id: 'q0-3',
+            category: 'basics',
+            prompt: 'Which C++ type would you use to store the value 3.14?',
+            xpReward: 20,
+            options: [
+              {
+                text: 'int',
+                isCorrect: false,
+                explanation: 'int only stores whole numbers. 3.14 would be truncated to 3.',
+              },
+              {
+                text: 'double',
+                isCorrect: true,
+                explanation: 'Correct! double stores 64-bit floating point numbers with decimal precision — perfect for 3.14.',
+              },
+              {
+                text: 'char',
+                isCorrect: false,
+                explanation: 'char stores a single character like \'A\' or \'3\', not a decimal number.',
+              },
+              {
+                text: 'bool',
+                isCorrect: false,
+                explanation: 'bool only stores true or false — not a numeric value.',
+              },
+            ],
+          },
+          {
+            id: 'q0-4',
+            category: 'basics',
+            prompt: 'What does this code print?\n`int x = 7 / 2; std::cout << x;`',
+            xpReward: 25,
+            options: [
+              {
+                text: '3.5',
+                isCorrect: false,
+                explanation: 'int variables can\'t store decimals. Integer division drops the remainder.',
+              },
+              {
+                text: '4',
+                isCorrect: false,
+                explanation: 'C++ does not round up integer division. The remainder is discarded.',
+              },
+              {
+                text: '3',
+                isCorrect: true,
+                explanation: 'Correct! 7 / 2 with two ints gives integer division: 3 remainder 1. The remainder is discarded, so x = 3.',
+              },
+              {
+                text: 'Compile error',
+                isCorrect: false,
+                explanation: 'This is perfectly valid C++ — it compiles and runs fine.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     id: 'm1',
     title: 'The Forge: C++ Fundamentals (CS110)',
     tagline: 'Step close to the metal. Maps directly to NUST SEECS CS110: Fundamentals of Programming.',
@@ -939,6 +1225,599 @@ int main() {
                 isCorrect: false,
                 explanation: 'Vector can hold hundreds of millions of elements.'
               }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'm6',
+    title: 'The Systems Forge: Production C++ Projects',
+    tagline: 'Build real-world systems. File I/O, game engines, and production C++.',
+    iconName: 'Wrench',
+    accentColor: '#f97316',
+    description: 'Apply your C++ knowledge to production-grade projects: parse server logs with file streams, and architect a 2D game state engine with OOP grid containers.',
+    lessons: [
+      {
+        id: 'm6-l1',
+        moduleId: 'm6',
+        title: 'The Production Log Parser',
+        subtitle: 'Parsing server logs with std::ifstream and string tokenization',
+        durationMinutes: 12,
+        xpReward: 200,
+        content: {
+          hook: 'Parsing real server and application logs is the bread and butter of production C++ work. Discover how to extract meaningful data from text files.',
+          mentalModel: 'Think of log parsing like a mail sorting machine. It reads a continuous stream of letters (lines), splits them by commas or pipes, and routes only the ERROR envelopes to a special bin.',
+          explanation: [
+            '`std::ifstream` (input file stream) is used to read data from files just like `std::cin` reads from the console.',
+            '`std::getline(stream, string, delimiter)` extracts characters until it hits a specific delimiter character.',
+            'String tokenization involves finding delimiters (like `|`) with `std::string::find` and extracting pieces using `std::string::substr`.',
+            'Always check stream states! `failbit` or `eofbit` tell you when something went wrong or if you hit the end of the file.'
+          ],
+          codeExample: `#include <iostream>
+#include <sstream>
+#include <string>
+
+int main() {
+    // We use stringstream here to simulate an open std::ifstream file
+    std::stringstream logFile(
+        "INFO|Server started\\n"
+        "ERROR|Database connection timeout\\n"
+        "WARNING|High memory usage\\n"
+        "ERROR|Failed to write to disk\\n"
+    );
+
+    std::string line;
+    int errorCount = 0;
+
+    while (std::getline(logFile, line)) {
+        size_t pipePos = line.find('|');
+        if (pipePos != std::string::npos) {
+            std::string level = line.substr(0, pipePos);
+            std::string message = line.substr(pipePos + 1);
+
+            if (level == "ERROR") {
+                errorCount++;
+                std::cout << "CRITICAL: " << message << "\\n";
+            }
+        }
+    }
+
+    std::cout << "Total errors found: " << errorCount << std::endl;
+    return 0;
+}`,
+          examples: [
+            {
+              title: 'Basic File Reading',
+              description: 'Opening a file and reading it line by line.',
+              code: `#include <iostream>
+#include <fstream>
+#include <string>
+
+int main() {
+    std::ifstream file("config.txt");
+    if (!file.is_open()) {
+        std::cerr << "Failed to open file.\\n";
+        return 1;
+    }
+    
+    std::string line;
+    while (std::getline(file, line)) {
+        std::cout << "Read: " << line << "\\n";
+    }
+    return 0;
+}`,
+              expectedOutput: 'Read: MaxConnections=100\nRead: Timeout=30\n'
+            },
+            {
+              title: 'Error Flag Handling',
+              description: 'Checking for EOF and IO errors.',
+              code: `#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ifstream file("missing.txt");
+    if (file.fail()) {
+        std::cout << "File failed to open. failbit is set.\\n";
+    }
+    return 0;
+}`,
+              expectedOutput: 'File failed to open. failbit is set.\n'
+            }
+          ],
+          deepDive: {
+            title: 'std::ios State Flags',
+            content: 'Streams maintain state flags like `goodbit`, `eofbit`, `failbit`, and `badbit`. A `failbit` means a format error occurred (like reading a char into an int), while `badbit` means a hard physical I/O error.'
+          },
+          interactivePrompt: {
+            task: 'Modify the parser to also count WARNING entries and print their messages.',
+            hint: 'Add another else if block checking for "WARNING".',
+            starterCode: `#include <iostream>
+#include <sstream>
+#include <string>
+
+int main() {
+    std::stringstream logFile("INFO|OK\\nWARNING|Disk almost full\\nERROR|Crash\\nWARNING|CPU hot\\n");
+    std::string line;
+    int warningCount = 0;
+
+    // Add your parsing logic here
+
+    std::cout << "Warnings: " << warningCount << std::endl;
+    return 0;
+}`
+          }
+        },
+        quiz: [
+          {
+            id: 'q6-1-1',
+            category: 'File I/O',
+            prompt: 'Which stream state flag indicates that an end-of-file was reached?',
+            xpReward: 25,
+            options: [
+              { text: 'eofbit', isCorrect: true, explanation: 'eofbit is set when the stream has attempted to read past the end of the file.' },
+              { text: 'failbit', isCorrect: false, explanation: 'failbit indicates a formatting or logical read error.' },
+              { text: 'badbit', isCorrect: false, explanation: 'badbit indicates a fatal stream error.' },
+              { text: 'goodbit', isCorrect: false, explanation: 'goodbit means no error flags are set.' }
+            ]
+          },
+          {
+            id: 'q6-1-2',
+            category: 'File I/O',
+            prompt: 'How does `std::getline` determine when to stop reading a string if a delimiter is provided?',
+            xpReward: 25,
+            options: [
+              { text: 'It reads until it encounters the specified delimiter character.', isCorrect: true, explanation: 'Yes, like std::getline(stream, str, \',\') reads until a comma.' },
+              { text: 'It always reads exactly 256 bytes.', isCorrect: false, explanation: 'It reads dynamically until the delimiter.' },
+              { text: 'It reads until any whitespace is found.', isCorrect: false, explanation: 'That is what the >> operator does by default.' },
+              { text: 'It stops only at newline characters.', isCorrect: false, explanation: 'By default it does, but if a custom delimiter is given, it stops there.' }
+            ]
+          },
+          {
+            id: 'q6-1-3',
+            category: 'File I/O',
+            prompt: 'What value does `std::string::find` return if the substring or character is not found?',
+            xpReward: 25,
+            options: [
+              { text: 'std::string::npos', isCorrect: true, explanation: 'npos is a special constant representing the maximum value for size_t, used as an error/not-found code.' },
+              { text: '-1', isCorrect: false, explanation: 'Technically true in two\'s complement cast to signed, but npos is the correct constant for size_t.' },
+              { text: '0', isCorrect: false, explanation: '0 would mean the character was found at index 0.' },
+              { text: 'nullptr', isCorrect: false, explanation: 'find returns a position index (size_t), not a pointer.' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'm6-l2',
+        moduleId: 'm6',
+        title: 'The Game State Engine',
+        subtitle: 'OOP grid container with multi-dimensional vectors for 2D spatial positioning',
+        durationMinutes: 15,
+        xpReward: 250,
+        content: {
+          hook: 'Building a 2D game means mapping entities to spatial coordinates. You need a fast, reliable grid system to handle physics, collisions, and movement.',
+          mentalModel: 'Think of a 2D game grid as a chess board. It is a coordinate system with rows and columns, where each square can be empty or contain a piece. We implement this using a vector of vectors.',
+          explanation: [
+            '`std::vector<std::vector<int>>` is a dynamic multi-dimensional array perfect for grids.',
+            'Encapsulating the grid in a class ensures that coordinates are always validated against boundaries before access.',
+            'Coordinate mapping generally uses row-major order: `grid[row][col]`.',
+            'Boundary validation (checking if row >= 0 && row < height) prevents segmentation faults when entities move off-screen.'
+          ],
+          codeExample: `#include <iostream>
+#include <vector>
+
+class GameGrid {
+private:
+    int rows, cols;
+    std::vector<std::vector<int>> grid;
+
+public:
+    GameGrid(int r, int c) : rows(r), cols(c) {
+        // Initialize 2D vector with 0s (empty spaces)
+        grid.resize(rows, std::vector<int>(cols, 0));
+    }
+
+    bool placeEntity(int r, int c, int entityId) {
+        if (r < 0 || r >= rows || c < 0 || c >= cols) return false;
+        grid[r][c] = entityId;
+        return true;
+    }
+
+    int getEntity(int r, int c) const {
+        if (r < 0 || r >= rows || c < 0 || c >= cols) return -1; // -1 for Out of bounds
+        return grid[r][c];
+    }
+
+    void printGrid() const {
+        for (int r = 0; r < rows; ++r) {
+            for (int c = 0; c < cols; ++c) {
+                std::cout << (grid[r][c] == 0 ? "." : std::to_string(grid[r][c])) << " ";
+            }
+            std::cout << "\\n";
+        }
+    }
+};
+
+int main() {
+    GameGrid map(5, 5);
+    map.placeEntity(2, 2, 9); // Player at center
+    map.placeEntity(0, 4, 1); // Enemy at top right
+    map.printGrid();
+    return 0;
+}`,
+          examples: [
+            {
+              title: '2D Vector Initialization',
+              description: 'Creating a 3x3 grid filled with a default value.',
+              code: `#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<std::vector<int>> matrix(3, std::vector<int>(3, 7));
+    std::cout << matrix[1][1] << std::endl;
+    return 0;
+}`,
+              expectedOutput: '7\n'
+            },
+            {
+              title: 'Bounds Checking',
+              description: 'Safely accessing a grid element.',
+              code: `#include <iostream>
+#include <vector>
+
+bool isSafe(const std::vector<std::vector<int>>& g, int r, int c) {
+    return (r >= 0 && r < g.size() && c >= 0 && c < g[0].size());
+}
+
+int main() {
+    std::vector<std::vector<int>> grid(2, std::vector<int>(2, 0));
+    std::cout << (isSafe(grid, 2, 2) ? "Safe" : "OOB") << std::endl;
+    return 0;
+}`,
+              expectedOutput: 'OOB\n'
+            }
+          ],
+          deepDive: {
+            title: 'Row-Major vs Column-Major Layout',
+            content: 'C++ `std::vector<std::vector<T>>` is technically an array of pointers to other arrays. In true row-major layout (like a flat 1D array mapped to 2D using `index = row * cols + col`), all data is contiguous in memory, which is much faster for CPU caches than nested vectors!'
+          },
+          interactivePrompt: {
+            task: 'Add a moveEntity(int startR, int startC, int endR, int endC) method that moves an entity if the destination is valid.',
+            hint: 'Read the entity at start, set start to 0, and place the entity at end. Remember bounds checking!',
+            starterCode: `// Implement moveEntity inside the GameGrid class
+bool moveEntity(int startR, int startC, int endR, int endC) {
+    // Your code here
+}`
+          }
+        },
+        quiz: [
+          {
+            id: 'q6-2-1',
+            category: 'OOP & Containers',
+            prompt: 'What is the correct way to initialize a 10x10 2D vector with zeros in C++?',
+            xpReward: 30,
+            options: [
+              { text: 'std::vector<std::vector<int>> grid(10, std::vector<int>(10, 0));', isCorrect: true, explanation: 'This creates 10 elements, each being a vector of 10 zeros.' },
+              { text: 'std::vector<int, 10, 10> grid;', isCorrect: false, explanation: 'Invalid syntax for std::vector.' },
+              { text: 'std::vector<int>[10][10] grid;', isCorrect: false, explanation: 'This mixes C-style array syntax with vector.' },
+              { text: 'std::vector<std::vector<int>> grid(100, 0);', isCorrect: false, explanation: 'This creates a 1D vector of 100 elements.' }
+            ]
+          },
+          {
+            id: 'q6-2-2',
+            category: 'OOP & Containers',
+            prompt: 'Why is bounds checking necessary before accessing grid[r][c]?',
+            xpReward: 30,
+            options: [
+              { text: 'To prevent out-of-bounds memory access which leads to undefined behavior or crashes.', isCorrect: true, explanation: 'Accessing invalid indices is undefined behavior and often causes a segmentation fault.' },
+              { text: 'Because C++ vectors automatically throw a nice exception otherwise.', isCorrect: false, explanation: 'The [] operator does not check bounds or throw exceptions (unlike .at()).' },
+              { text: 'To ensure the integers are positive.', isCorrect: false, explanation: 'Bounds checking is for coordinates, not data values.' },
+              { text: 'To trigger the garbage collector.', isCorrect: false, explanation: 'C++ has no garbage collector.' }
+            ]
+          },
+          {
+            id: 'q6-2-3',
+            category: 'OOP & Containers',
+            prompt: 'When passing a large `std::vector<std::vector<int>>` to a function just to read it, how should it be passed?',
+            xpReward: 30,
+            options: [
+              { text: 'By const reference: `const std::vector<std::vector<int>>&`', isCorrect: true, explanation: 'Const reference avoids copying the massive nested structure while ensuring it is read-only.' },
+              { text: 'By value: `std::vector<std::vector<int>>`', isCorrect: false, explanation: 'This makes an expensive deep copy of the entire grid.' },
+              { text: 'As an rvalue: `std::vector<std::vector<int>>&&`', isCorrect: false, explanation: 'Only used for move semantics.' },
+              { text: 'As an int pointer: `int**`', isCorrect: false, explanation: 'A vector of vectors is not equivalent to an int**.' }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'm7',
+    title: 'The Algorithm Arsenal: DSA Deep Dives',
+    tagline: 'Implement classic data structures from scratch in raw C++.',
+    iconName: 'Binary',
+    accentColor: '#a855f7',
+    description: 'Build fundamental data structures from the ground up: a custom dynamic array mimicking std::vector, and a high-performance hash map with collision handling.',
+    lessons: [
+      {
+        id: 'm7-l1',
+        moduleId: 'm7',
+        title: 'Custom Dynamic Array (Vector Clone)',
+        subtitle: 'Building std::vector from scratch with RAII and capacity doubling',
+        durationMinutes: 15,
+        xpReward: 250,
+        content: {
+          hook: 'You use std::vector every day. But do you truly understand what it does under the hood? It is time to build it from scratch.',
+          mentalModel: 'Imagine a stretchy rubber container. When it gets full, you buy a new container twice the size, move all your items to the new one, and throw away the old one. This is capacity doubling.',
+          explanation: [
+            'A dynamic array manually manages a heap-allocated `new[]` array.',
+            '`size` tracks active elements, `capacity` tracks allocated space.',
+            'When size == capacity, you allocate a new buffer of 2x size, copy elements, and `delete[]` the old buffer. This gives amortized O(1) push_back complexity.',
+            'The Rule of Three: If you manage a raw pointer, you MUST implement a custom destructor, copy constructor, and copy assignment operator to prevent double-free crashes!'
+          ],
+          codeExample: `#include <iostream>
+#include <stdexcept>
+
+class DynArray {
+private:
+    int* data;
+    int size;
+    int capacity;
+
+public:
+    DynArray() : size(0), capacity(2) {
+        data = new int[capacity];
+    }
+
+    ~DynArray() {
+        delete[] data;
+    }
+
+    void push_back(int val) {
+        if (size == capacity) {
+            capacity *= 2;
+            int* newData = new int[capacity];
+            for (int i = 0; i < size; ++i) {
+                newData[i] = data[i];
+            }
+            delete[] data;
+            data = newData;
+            std::cout << "Reallocated to capacity " << capacity << "\\n";
+        }
+        data[size++] = val;
+    }
+
+    int& operator[](int index) {
+        if (index < 0 || index >= size) throw std::out_of_range("Index out of bounds");
+        return data[index];
+    }
+
+    int getSize() const { return size; }
+    int getCapacity() const { return capacity; }
+};
+
+int main() {
+    DynArray arr;
+    for(int i = 0; i < 5; i++) {
+        arr.push_back(i * 10);
+    }
+    std::cout << "Element at 3: " << arr[3] << std::endl;
+    return 0;
+}`,
+          examples: [
+            {
+              title: 'Dynamic Growth Output',
+              description: 'Tracing how capacity increases over time.',
+              code: `#include <iostream>
+// (Assume DynArray class from above)
+int main() {
+    DynArray arr;
+    arr.push_back(1); // cap: 2
+    arr.push_back(2); // cap: 2
+    arr.push_back(3); // triggers realloc -> cap: 4
+    std::cout << arr.getCapacity() << std::endl;
+    return 0;
+}`,
+              expectedOutput: 'Reallocated to capacity 4\n4\n'
+            },
+            {
+              title: 'Memory Leak Prevention',
+              description: 'The destructor is automatically called.',
+              code: `void testArray() {
+    DynArray arr;
+    arr.push_back(99);
+} // arr goes out of scope, ~DynArray() calls delete[] data!`,
+              expectedOutput: ''
+            }
+          ],
+          deepDive: {
+            title: 'Amortized Analysis of Capacity Doubling',
+            content: 'Copying an entire array sounds slow (O(N)). But because we DOUBLE the size each time, we rarely have to copy. Mathematically, the average cost of an insertion over a long period averages out to exactly O(1) constant time!'
+          },
+          interactivePrompt: {
+            task: 'Add a pop_back() method to DynArray that removes the last element and returns it.',
+            hint: 'Just decrease the size! But throw an exception if size is 0.',
+            starterCode: `int pop_back() {
+    // Add logic here
+}`
+          }
+        },
+        quiz: [
+          {
+            id: 'q7-1-1',
+            category: 'DSA',
+            prompt: 'What is the time complexity of `push_back` in a dynamically doubling array?',
+            xpReward: 30,
+            options: [
+              { text: 'Amortized O(1)', isCorrect: true, explanation: 'Most operations are O(1), and the rare O(N) reallocations average out, making it amortized O(1).' },
+              { text: 'Always O(N)', isCorrect: false, explanation: 'Only reallocation steps are O(N).' },
+              { text: 'Always O(1)', isCorrect: false, explanation: 'Reallocations take O(N) time.' },
+              { text: 'O(log N)', isCorrect: false, explanation: 'Pushing back has no logarithmic property here.' }
+            ]
+          },
+          {
+            id: 'q7-1-2',
+            category: 'DSA',
+            prompt: 'Why do we need a custom destructor for `DynArray`?',
+            xpReward: 30,
+            options: [
+              { text: 'To call `delete[]` on the dynamically allocated data buffer to prevent memory leaks.', isCorrect: true, explanation: 'Heap allocations are never automatically freed in C++.' },
+              { text: 'To reset the size to zero.', isCorrect: false, explanation: 'Setting size to 0 does not free the memory.' },
+              { text: 'To print a goodbye message.', isCorrect: false, explanation: 'Logging is not the main reason for a destructor.' },
+              { text: 'To compile successfully.', isCorrect: false, explanation: 'The compiler will generate a default destructor that leaks memory, but it will compile.' }
+            ]
+          },
+          {
+            id: 'q7-1-3',
+            category: 'DSA',
+            prompt: 'What is the "Rule of Three" in C++?',
+            xpReward: 30,
+            options: [
+              { text: 'If a class needs a custom destructor, copy constructor, or copy assignment operator, it almost certainly needs all three.', isCorrect: true, explanation: 'This prevents shallow copy issues leading to double-frees or dangling pointers.' },
+              { text: 'Every class must have three public methods.', isCorrect: false, explanation: 'There is no such rule.' },
+              { text: 'Variables should be initialized three times.', isCorrect: false, explanation: 'Nonsense.' },
+              { text: 'Functions can have a maximum of three parameters.', isCorrect: false, explanation: 'Functions can have many parameters.' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'm7-l2',
+        moduleId: 'm7',
+        title: 'High-Speed C++ Hash Dictionary',
+        subtitle: 'Custom HashMap with chaining, rehashing, and O(1) average lookup',
+        durationMinutes: 18,
+        xpReward: 300,
+        content: {
+          hook: 'Hash maps (or unordered_maps) are arguably the most critical data structure in production software. They offer magical O(1) lookups. How do they work?',
+          mentalModel: 'Think of a hash map as a library with many numbered shelves (buckets). A hash function takes a book title, scrambles it into a number, and says "Go to shelf 14". If shelf 14 already has a book, you just chain them together in a list (collision handling).',
+          explanation: [
+            'A hash function maps keys (like strings) to integer indices in an array.',
+            'A bucket array (like `std::vector`) stores the items.',
+            'Hash collisions happen when two different keys hash to the same bucket. We resolve this via Separate Chaining (storing a `std::list` in each bucket).',
+            'Load Factor is `size / buckets`. When the load factor exceeds 1.0, the map must be rehashed to a larger array to maintain O(1) speed.'
+          ],
+          codeExample: `#include <iostream>
+#include <vector>
+#include <list>
+#include <string>
+#include <functional> // For std::hash
+
+class HashMap {
+private:
+    int numBuckets;
+    int size;
+    // Vector of linked lists holding Key-Value pairs
+    std::vector<std::list<std::pair<std::string, int>>> buckets;
+
+    int hash(const std::string& key) const {
+        return std::hash<std::string>{}(key) % numBuckets;
+    }
+
+public:
+    HashMap(int b = 10) : numBuckets(b), size(0) {
+        buckets.resize(numBuckets);
+    }
+
+    void insert(const std::string& key, int value) {
+        int index = hash(key);
+        for (auto& pair : buckets[index]) {
+            if (pair.first == key) {
+                pair.second = value; // Update existing
+                return;
+            }
+        }
+        buckets[index].push_back({key, value});
+        size++;
+    }
+
+    int find(const std::string& key) const {
+        int index = hash(key);
+        for (const auto& pair : buckets[index]) {
+            if (pair.first == key) return pair.second;
+        }
+        return -1; // Not found
+    }
+};
+
+int main() {
+    HashMap dictionary;
+    dictionary.insert("C++", 1985);
+    dictionary.insert("Rust", 2010);
+    
+    std::cout << "Rust created in: " << dictionary.find("Rust") << std::endl;
+    std::cout << "Java created in: " << dictionary.find("Java") << std::endl;
+    return 0;
+}`,
+          examples: [
+            {
+              title: 'Handling Collisions',
+              description: 'Two keys that hash to the same bucket are both stored in the list.',
+              code: `// Assuming bucket size is small and "A" and "B" hash to same index:
+HashMap map(2);
+map.insert("A", 100);
+map.insert("B", 200);
+std::cout << map.find("A") << " and " << map.find("B") << "\\n";`,
+              expectedOutput: '100 and 200\n'
+            },
+            {
+              title: 'Updating Values',
+              description: 'Inserting an existing key updates its value.',
+              code: `HashMap map;
+map.insert("Score", 10);
+map.insert("Score", 50); // Overwrites
+std::cout << map.find("Score") << "\\n";`,
+              expectedOutput: '50\n'
+            }
+          ],
+          deepDive: {
+            title: 'Open Addressing vs Separate Chaining',
+            content: 'We used Separate Chaining (a list per bucket). Another strategy is Open Addressing: if a bucket is full, you simply look at the next adjacent bucket (Linear Probing). Open addressing is often much faster in modern C++ due to CPU cache locality!'
+          },
+          interactivePrompt: {
+            task: 'Implement a contains(string key) method that returns true if the key exists, and false otherwise.',
+            hint: 'It is very similar to find(), but returns a boolean instead of the value.',
+            starterCode: `bool contains(const std::string& key) const {
+    // Return true if found, false otherwise
+}`
+          }
+        },
+        quiz: [
+          {
+            id: 'q7-2-1',
+            category: 'DSA',
+            prompt: 'What happens when two different keys produce the same hash code index in our implementation?',
+            xpReward: 35,
+            options: [
+              { text: 'They are both stored in the linked list at that bucket index (Separate Chaining).', isCorrect: true, explanation: 'This is the standard chaining resolution strategy.' },
+              { text: 'The program crashes.', isCorrect: false, explanation: 'Collisions are normal and must be handled.' },
+              { text: 'The old value is deleted.', isCorrect: false, explanation: 'Both pairs are kept, unless the keys are identical.' },
+              { text: 'The array instantly doubles in size.', isCorrect: false, explanation: 'Rehashing happens based on load factor, not a single collision.' }
+            ]
+          },
+          {
+            id: 'q7-2-2',
+            category: 'DSA',
+            prompt: 'What is the "Load Factor" of a hash map?',
+            xpReward: 35,
+            options: [
+              { text: 'The ratio of stored elements to the number of available buckets (size / numBuckets).', isCorrect: true, explanation: 'A high load factor means more collisions and slower lookups.' },
+              { text: 'The time it takes to hash a key.', isCorrect: false, explanation: 'That is the hash computation time.' },
+              { text: 'The maximum size of the key string.', isCorrect: false, explanation: 'Irrelevant.' },
+              { text: 'The CPU utilization during insertion.', isCorrect: false, explanation: 'Irrelevant.' }
+            ]
+          },
+          {
+            id: 'q7-2-3',
+            category: 'DSA',
+            prompt: 'What is the average-case and worst-case time complexity of hash map lookups?',
+            xpReward: 35,
+            options: [
+              { text: 'Average: O(1), Worst: O(N)', isCorrect: true, explanation: 'On average, lookups are instant. In the worst case (all keys hash to the same bucket), it degenerates to an O(N) linked list.' },
+              { text: 'Average: O(log N), Worst: O(N)', isCorrect: false, explanation: 'Tree maps (std::map) are O(log N), but hash maps are O(1) average.' },
+              { text: 'Average: O(1), Worst: O(1)', isCorrect: false, explanation: 'Worst case is O(N) due to collisions.' },
+              { text: 'Average: O(N), Worst: O(N^2)', isCorrect: false, explanation: 'Way too slow.' }
             ]
           }
         ]

@@ -8,6 +8,8 @@ export const DEFAULT_PROGRESS: UserProgress = {
   completedLessons: ['m1-l1'], // First introductory lesson marked or ready
   completedChallenges: [],
   completedExercises: [],
+  completedQuests: [],
+  totalLabLaunches: 0,
   unlockedBadges: ['welcome_dev'],
   soundEnabled: true,
   streak: 1,
@@ -116,6 +118,8 @@ export const mergeProgress = (local: UserProgress, remote: UserProgress): UserPr
     completedLessons: Array.from(new Set([...(local.completedLessons || []), ...(remote.completedLessons || [])])),
     completedChallenges: Array.from(new Set([...(local.completedChallenges || []), ...(remote.completedChallenges || [])])),
     completedExercises: Array.from(new Set([...(local.completedExercises || []), ...(remote.completedExercises || [])])),
+    completedQuests: Array.from(new Set([...(local.completedQuests || []), ...(remote.completedQuests || [])])),
+    totalLabLaunches: Math.max(local.totalLabLaunches || 0, remote.totalLabLaunches || 0),
     unlockedBadges: Array.from(new Set([...(local.unlockedBadges || []), ...(remote.unlockedBadges || [])])),
     soundEnabled: local.soundEnabled ?? remote.soundEnabled ?? true,
     lastActive: new Date().toISOString(),

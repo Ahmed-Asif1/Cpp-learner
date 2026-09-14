@@ -14,6 +14,7 @@ import {
   Zap,
   GraduationCap,
   User,
+  HelpCircle,
 } from 'lucide-react';
 import { soundManager } from '../../services/soundEffects';
 
@@ -31,6 +32,7 @@ interface NavbarProps {
   onToggleSound: () => void;
   onOpenAchievements: () => void;
   onOpenCheatSheet: () => void;
+  onOpenTutorial?: () => void;
   username?: string | null;
   onOpenUsernameModal?: () => void;
 }
@@ -47,6 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleSound,
   onOpenAchievements,
   onOpenCheatSheet,
+  onOpenTutorial,
   username,
   onOpenUsernameModal,
 }) => {
@@ -86,8 +89,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1 bg-zinc-900/80 p-1 rounded-lg border border-zinc-800" role="tablist">
+          {/* Navigation Links — flat text, bottom-accent active */}
+          <nav className="hidden lg:flex items-center gap-0.5" role="tablist">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -101,14 +104,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     soundManager.playClick();
                     onTabChange(item.id);
                   }}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  className={`relative flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
                     isActive
                       ? isNust
-                        ? 'bg-zinc-800 text-emerald-400 font-semibold shadow-sm'
-                        : 'bg-zinc-800 text-zinc-100 font-semibold shadow-sm'
+                        ? 'text-emerald-400 font-semibold'
+                        : 'text-zinc-100 font-semibold'
                       : isNust
-                        ? 'text-emerald-400/90 hover:text-emerald-300 hover:bg-zinc-800/50'
-                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
+                        ? 'text-emerald-400/70 hover:text-emerald-300'
+                        : 'text-zinc-400 hover:text-zinc-200'
                   }`}
                 >
                   <Icon className={`w-3.5 h-3.5 ${isActive ? (isNust ? 'text-emerald-400' : 'text-zinc-100') : (isNust ? 'text-emerald-500' : 'text-zinc-400')}`} />
@@ -116,16 +119,80 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {isNust && !isActive && (
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   )}
+                  {isActive && (
+                    <span className={`absolute bottom-0 left-2 right-2 h-0.5 rounded-full ${isNust ? 'bg-emerald-400' : 'bg-cyan-400'}`} />
+                  )}
                 </button>
               );
             })}
           </nav>
         </div>
 
-        {/* Right Action & Progression Bar - Unified Horizontal Baseline */}
+        {/* Right Section — Utility Actions | User Cluster */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          {/* Level & XP progression indicator */}
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-md bg-zinc-900/80 border border-zinc-800 text-xs font-mono tabular-nums text-zinc-300 min-h-[40px]">
+          {/* Platform Guide / Tutorial Button */}
+          {onOpenTutorial && (
+            <button
+              onClick={() => {
+                soundManager.playClick();
+                onOpenTutorial();
+              }}
+              className="min-h-[40px] sm:min-h-[44px] flex items-center gap-1.5 px-2.5 sm:px-3 rounded-md text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/40 border border-cyan-500/30 transition-colors active:scale-95 text-xs font-medium"
+              title="Platform Guide & Roadmap"
+              aria-label="Platform Guide & Roadmap"
+            >
+              <HelpCircle className="w-4 h-4 text-cyan-400 shrink-0" />
+              <span className="hidden sm:inline font-sans">Guide</span>
+            </button>
+          )}
+
+          {/* Utility Buttons */}
+          <button
+            onClick={() => {
+              soundManager.playClick();
+              onOpenCheatSheet();
+            }}
+            className="min-w-[40px] min-h-[40px] sm:min-w-[44px] sm:min-h-[44px] flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 transition-colors active:scale-95"
+            title="C++ Cheat Sheet"
+            aria-label="C++ Cheat Sheet & Reference"
+          >
+            <FileText className="w-4 h-4 text-cyan-400" />
+          </button>
+
+          <button
+            onClick={() => {
+              soundManager.playClick();
+              onOpenAchievements();
+            }}
+            className="min-w-[40px] min-h-[40px] sm:min-w-[44px] sm:min-h-[44px] flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 transition-colors relative active:scale-95"
+            title="Achievements & Rank"
+            aria-label="Achievements & Hall of Mastery"
+          >
+            <Trophy className="w-4 h-4 text-amber-400" />
+            <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-amber-400 rounded-full" />
+          </button>
+
+          <button
+            onClick={() => {
+              soundManager.playClick();
+              onToggleSound();
+            }}
+            className="min-w-[40px] min-h-[40px] sm:min-w-[44px] sm:min-h-[44px] flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 transition-colors active:scale-95"
+            title={soundEnabled ? 'Mute Sound FX' : 'Enable Sound FX'}
+            aria-label={soundEnabled ? 'Mute Sound FX' : 'Enable Sound FX'}
+          >
+            {soundEnabled ? (
+              <Volume2 className="w-4 h-4 text-emerald-400" />
+            ) : (
+              <VolumeX className="w-4 h-4 text-zinc-500" />
+            )}
+          </button>
+
+          {/* Vertical Divider */}
+          <div className="hidden sm:block w-px h-6 bg-zinc-800" />
+
+          {/* User Cluster: XP Track + Profile */}
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 text-xs font-mono tabular-nums text-zinc-300 min-h-[40px]">
             <span className="font-semibold text-zinc-100">Lvl {level}</span>
             <span className="text-zinc-600">|</span>
             <span className="text-cyan-400 font-semibold">{currentXp} <span className="text-zinc-400 font-sans text-[10px]">/ {nextLevelXp} XP</span></span>
@@ -136,50 +203,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
             </div>
           </div>
-
-          {/* Cheat Sheet Button */}
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              onOpenCheatSheet();
-            }}
-            className="min-w-[40px] min-h-[40px] sm:min-w-[44px] sm:min-h-[44px] flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 border border-zinc-800 transition-colors active:scale-95"
-            title="C++ Cheat Sheet"
-            aria-label="C++ Cheat Sheet & Reference"
-          >
-            <FileText className="w-4 h-4 text-cyan-400" />
-          </button>
-
-          {/* Trophy / Hall of Fame */}
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              onOpenAchievements();
-            }}
-            className="min-w-[40px] min-h-[40px] sm:min-w-[44px] sm:min-h-[44px] flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 border border-zinc-800 transition-colors relative active:scale-95"
-            title="Achievements & Rank"
-            aria-label="Achievements & Hall of Mastery"
-          >
-            <Trophy className="w-4 h-4 text-amber-400" />
-            <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-amber-400 rounded-full" />
-          </button>
-
-          {/* Sound FX Toggle */}
-          <button
-            onClick={() => {
-              soundManager.playClick();
-              onToggleSound();
-            }}
-            className="min-w-[40px] min-h-[40px] sm:min-w-[44px] sm:min-h-[44px] flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 border border-zinc-800 transition-colors active:scale-95"
-            title={soundEnabled ? 'Mute Sound FX' : 'Enable Sound FX'}
-            aria-label={soundEnabled ? 'Mute Sound FX' : 'Enable Sound FX'}
-          >
-            {soundEnabled ? (
-              <Volume2 className="w-4 h-4 text-emerald-400" />
-            ) : (
-              <VolumeX className="w-4 h-4 text-zinc-500" />
-            )}
-          </button>
 
           {/* Username Indicator */}
           {onOpenUsernameModal && (
@@ -223,11 +246,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`min-h-[40px] sm:min-h-[44px] flex items-center gap-1.5 px-3 py-2 rounded-md text-xs whitespace-nowrap font-medium transition-colors shrink-0 ${
                 isActive
                   ? isNust
-                    ? 'bg-zinc-800 text-emerald-400 font-semibold border border-emerald-500/30 shadow-sm'
-                    : 'bg-zinc-800 text-zinc-100 font-semibold border border-zinc-700/60 shadow-sm'
+                    ? 'bg-zinc-800 text-emerald-400 font-semibold'
+                    : 'bg-zinc-800 text-zinc-100 font-semibold'
                   : isNust
-                    ? 'text-emerald-400/90 hover:text-emerald-300 hover:bg-zinc-900 border border-transparent'
-                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900 border border-transparent'
+                    ? 'text-emerald-400/90 hover:text-emerald-300 hover:bg-zinc-900'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900'
               }`}
             >
               <Icon className="w-3.5 h-3.5 shrink-0" />
