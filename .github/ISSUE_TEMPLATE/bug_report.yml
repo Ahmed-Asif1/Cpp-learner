@@ -1,0 +1,69 @@
+﻿name: '🐛 Bug Report'
+description: 'Report an error, simulator bug, or visual issue in C++ Odyssey'
+title: '[BUG]: '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue! Please provide as much detail as possible so we can diagnose and fix it quickly.
+  - type: dropdown
+    id: component
+    attributes:
+      label: 'Affected Component / Tab'
+      description: 'Which part of the platform experienced the issue?'
+      options:
+        - 'Quests (Curriculum)'
+        - 'Memory Sandbox (Execution Engine / Pointers)'
+        - 'Bug Hunter Protocol (Game Mode)'
+        - 'Coding Exercises'
+        - 'STL & Architecture Labs'
+        - 'SEECS NUST Degree Hub'
+        - 'Navbar / Modals (Guide, Cheat Sheet, Trophy)'
+        - 'Progress Persistence / Redis Sync'
+        - 'Other'
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 'Bug Description'
+      description: 'A clear and concise description of what happened.'
+      placeholder: 'When clicking Run Code in the sandbox with pointers, ...'
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 'Steps to Reproduce'
+      description: 'How can we trigger this bug?'
+      placeholder: |
+        1. Open tab '...'
+        2. Enter code '...'
+        3. Click '...'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: code_snippet
+    attributes:
+      label: 'C++ Code / Error Output (if applicable)'
+      description: 'Paste any relevant C++ code or browser console error logs.'
+      render: cpp
+  - type: input
+    id: environment
+    attributes:
+      label: 'Device & Browser'
+      description: 'e.g. Windows 11 Chrome, macOS Safari, Android Chrome'
+      placeholder: 'Windows 11 / Chrome 124'
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 'Pre-flight Checklist'
+      options:
+        - label: 'I confirmed this issue is not already reported in existing Issues.'
+          required: true
+        - label: 'I am running the latest version of C++ Odyssey.'
+          required: false

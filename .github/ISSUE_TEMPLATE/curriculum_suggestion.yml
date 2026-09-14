@@ -1,0 +1,34 @@
+﻿name: '🎓 Curriculum & Course Suggestion'
+description: 'Suggest a new C++ Quest module, exercise, or NUST SEECS course addition'
+title: '[CURRICULUM]: '
+labels: ['curriculum', 'content']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Suggest an additional topic, code example, or lab task for C++ Odyssey's curriculum or SEECS NUST Degree Hub.
+  - type: dropdown
+    id: category
+    attributes:
+      label: 'Target Area'
+      options:
+        - 'New Quest Module / Lesson'
+        - 'Bug Hunter Challenge'
+        - 'SEECS BSCS Course Update (CS110, CS212, CS214, etc.)'
+        - 'Interactive Code Lab / Sandbox Preset'
+    validations:
+      required: true
+  - type: textarea
+    id: topic
+    attributes:
+      label: 'Topic & Core Concepts'
+      description: 'What C++ concept or university course topic should be taught?'
+      placeholder: 'e.g. Virtual Inheritance, Template Specialization, Custom Allocators...'
+    validations:
+      required: true
+  - type: textarea
+    id: code_example
+    attributes:
+      label: 'Starter / Example Code (optional)'
+      description: 'Provide a sample C++ code snippet if applicable.'
+      render: cpp

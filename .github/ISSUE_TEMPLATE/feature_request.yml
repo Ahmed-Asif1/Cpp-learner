@@ -1,0 +1,39 @@
+﻿name: '💡 Feature Request'
+description: 'Suggest a new simulator feature, game mode, or platform capability'
+title: '[FEATURE]: '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea for making C++ Odyssey even better? We love community feedback!
+  - type: textarea
+    id: problem
+    attributes:
+      label: 'Is your feature request related to a problem?'
+      description: 'A clear and concise description of the frustration or limitation.'
+      placeholder: 'I am always frustrated when...'
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: 'Describe the solution you would like'
+      description: 'A clear and concise description of what you want to happen.'
+      placeholder: 'Add support for visualizing C++ references alongside pointers in stack frames...'
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 'Describe alternatives you have considered'
+      description: 'Any alternative solutions or workarounds you thought of.'
+    validations:
+      required: false
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 'Willingness to Contribute'
+      options:
+        - label: 'I would be interested in submitting a Pull Request to implement this feature!'
+          required: false
