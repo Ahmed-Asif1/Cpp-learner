@@ -150,20 +150,20 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
   return (
     <div className="max-w-[1600px] mx-auto px-4 py-6 space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 pb-5">
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
               Interactive Practice
             </span>
-            <span className="text-xs text-slate-400">
+            <span className="text-xs text-zinc-400 tabular-nums">
               {completedExerciseIds.length} of {CODING_EXERCISES.length} Completed
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-zinc-100 tracking-tight mt-1">
             C++ Systems Coding Exercises
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-2xl">
             Hands-on programming challenges with in-browser compilation, automated test runners, and real-time memory simulation.
           </p>
         </div>
@@ -171,13 +171,13 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
         {/* Search & Category Pills */}
         <div className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
             <input
               type="text"
               placeholder="Search challenges..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 pr-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-cyan-500/50 w-full sm:w-48 transition"
+              className="pl-8 pr-3 py-1.5 rounded-md bg-zinc-900 border border-zinc-800 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700 w-full sm:w-48 transition"
             />
           </div>
         </div>
@@ -194,10 +194,10 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
                 soundManager.playClick();
                 setSelectedCategory(cat);
               }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition ${
                 isActive
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm'
-                  : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 hover:border-slate-700'
+                  : 'bg-zinc-900/80 text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700'
               }`}
             >
               {cat}
@@ -207,23 +207,23 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
       </div>
 
       {/* Mobile Tab Switcher */}
-      <div className="flex lg:hidden rounded-xl bg-slate-900/90 p-1 border border-slate-800">
+      <div className="flex lg:hidden rounded-lg bg-zinc-900/90 p-1 border border-zinc-800">
         <button
           onClick={() => setActiveMobileTab('instructions')}
-          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition ${
+          className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition ${
             activeMobileTab === 'instructions'
-              ? 'bg-slate-800 text-cyan-400 shadow-sm'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-zinc-800 text-cyan-400 shadow-sm'
+              : 'text-zinc-400 hover:text-white'
           }`}
         >
           Instructions & Specs
         </button>
         <button
           onClick={() => setActiveMobileTab('editor')}
-          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition ${
+          className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition ${
             activeMobileTab === 'editor'
-              ? 'bg-slate-800 text-cyan-400 shadow-sm'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-zinc-800 text-cyan-400 shadow-sm'
+              : 'text-zinc-400 hover:text-white'
           }`}
         >
           Editor & Output
@@ -239,10 +239,10 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
           }`}
         >
           {/* Challenge Selector List */}
-          <div className="glass-panel border border-slate-800/80 rounded-2xl p-3 bg-slate-950/60 max-h-[300px] overflow-y-auto space-y-1.5">
-            <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider px-2 py-1 flex items-center justify-between">
+          <div className="border border-zinc-800 rounded-lg p-3 bg-zinc-950/60 max-h-[300px] overflow-y-auto space-y-1.5">
+            <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider px-2 py-1 flex items-center justify-between">
               <span>Challenge Index</span>
-              <span>{filteredExercises.length} items</span>
+              <span className="tabular-nums">{filteredExercises.length} items</span>
             </div>
             {filteredExercises.map((ex) => {
               const active = ex.id === currentExercise.id;
@@ -251,10 +251,10 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
                 <button
                   key={ex.id}
                   onClick={() => handleSelectExercise(ex)}
-                  className={`w-full text-left p-2.5 rounded-xl transition flex items-center justify-between gap-3 border ${
+                  className={`w-full text-left p-2.5 rounded-md transition-colors flex items-center justify-between gap-3 border ${
                     active
                       ? 'bg-cyan-950/30 border-cyan-500/40 text-white'
-                      : 'bg-slate-900/40 border-slate-800/60 text-slate-300 hover:bg-slate-900 hover:border-slate-700'
+                      : 'bg-zinc-900/40 border-zinc-800 text-zinc-300 hover:bg-zinc-900 hover:border-zinc-700'
                   }`}
                 >
                   <div className="min-w-0">
@@ -263,7 +263,7 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
                     </div>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="text-[10px] font-mono text-cyan-400">{ex.category}</span>
-                      <span className="text-[10px] text-slate-500">•</span>
+                      <span className="text-[10px] text-zinc-500">•</span>
                       <span
                         className={`text-[10px] font-medium ${
                           ex.difficulty === 'Beginner'
@@ -279,11 +279,11 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-[11px] font-mono text-amber-400 font-bold">+{ex.xpReward} XP</span>
+                    <span className="text-[11px] font-mono text-amber-400 font-bold tabular-nums">+{ex.xpReward} XP</span>
                     {completed ? (
                       <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     ) : (
-                      <div className="w-3.5 h-3.5 rounded-full border border-slate-700" />
+                      <div className="w-3.5 h-3.5 rounded-full border border-zinc-700" />
                     )}
                   </div>
                 </button>
@@ -292,7 +292,7 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
           </div>
 
           {/* Current Challenge Specification Card */}
-          <div className="glass-panel border border-slate-800 rounded-2xl p-4 sm:p-5 bg-slate-950/70 space-y-4">
+          <div className="border border-zinc-800 rounded-lg p-4 sm:p-5 bg-zinc-950/70 space-y-4">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
@@ -316,94 +316,94 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
                     </span>
                   )}
                 </div>
-                <h2 className="text-base sm:text-lg font-bold text-white leading-tight">
+                <h2 className="text-base sm:text-lg font-bold text-white tracking-tight leading-tight">
                   {currentExercise.title}
                 </h2>
               </div>
-              <span className="px-2.5 py-1 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold shrink-0">
-                +{currentExercise.xpReward} XP
-              </span>
-            </div>
-
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              {currentExercise.description}
-            </p>
-
-            {/* Checklist */}
-            <div className="space-y-2 pt-2 border-t border-slate-800/80">
-              <h3 className="text-xs font-mono font-semibold uppercase text-slate-400 tracking-wider">
-                Requirements
-              </h3>
-              <ul className="space-y-1.5 text-xs text-slate-300">
-                {currentExercise.instructions.map((inst, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="w-4 h-4 rounded-full bg-slate-900 border border-slate-800 text-[10px] font-mono flex items-center justify-center text-cyan-400 shrink-0 mt-0.5">
-                      {idx + 1}
-                    </span>
-                    <span>{inst}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Expected Output Card */}
-            <div className="space-y-1.5 pt-2 border-t border-slate-800/80">
-              <div className="flex items-center justify-between text-xs font-mono text-slate-400 font-semibold">
-                <span className="flex items-center gap-1.5">
-                  <Terminal className="w-3.5 h-3.5 text-emerald-400" />
-                  Expected Output (stdout)
+                <span className="px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold tabular-nums shrink-0">
+                  +{currentExercise.xpReward} XP
                 </span>
               </div>
-              <pre className="p-3 rounded-xl bg-[#030712] border border-slate-900 font-mono text-xs text-emerald-400 whitespace-pre-wrap">
-                {currentExercise.expectedOutput}
-              </pre>
-            </div>
 
-            {/* Hint & Solution Buttons */}
-            <div className="flex flex-wrap items-center gap-2 pt-2">
-              <button
-                onClick={() => {
-                  soundManager.playClick();
-                  setShowHint(!showHint);
-                }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 hover:text-white transition"
-              >
-                <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
-                <span>{showHint ? 'Hide Hint' : 'Show Hint'}</span>
-              </button>
+              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                {currentExercise.description}
+              </p>
 
-              <button
-                onClick={() => {
-                  soundManager.playClick();
-                  setShowSolution(!showSolution);
-                }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 hover:text-white transition"
-              >
-                <Eye className="w-3.5 h-3.5 text-cyan-400" />
-                <span>{showSolution ? 'Hide Solution' : 'View Reference Solution'}</span>
-              </button>
-            </div>
-
-            {showHint && (
-              <div className="p-3 rounded-xl bg-amber-950/20 border border-amber-500/30 text-xs text-amber-200/90 leading-relaxed flex items-start gap-2">
-                <HelpCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="font-semibold block mb-0.5">Implementation Hint:</strong>
-                  {currentExercise.hint}
-                </div>
+              {/* Checklist */}
+              <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                <h3 className="text-xs font-mono font-semibold uppercase text-zinc-400 tracking-wider">
+                  Requirements
+                </h3>
+                <ul className="space-y-1.5 text-xs text-zinc-300">
+                  {currentExercise.instructions.map((inst, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="w-4 h-4 rounded-md bg-zinc-900 border border-zinc-800 text-[10px] font-mono flex items-center justify-center text-cyan-400 shrink-0 mt-0.5 tabular-nums">
+                        {idx + 1}
+                      </span>
+                      <span>{inst}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            )}
 
-            {showSolution && currentExercise.solutionCode && (
-              <div className="space-y-1.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800">
-                <div className="text-[11px] font-mono text-cyan-400 font-semibold">
-                  Canonical Reference Solution:
+              {/* Expected Output Card */}
+              <div className="space-y-1.5 pt-2 border-t border-zinc-800/80">
+                <div className="flex items-center justify-between text-xs font-mono text-zinc-400 font-semibold">
+                  <span className="flex items-center gap-1.5">
+                    <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+                    Expected Output (stdout)
+                  </span>
                 </div>
-                <pre className="p-3 rounded-lg bg-[#030712] font-mono text-xs text-cyan-300 overflow-x-auto">
-                  <code>{currentExercise.solutionCode}</code>
+                <pre className="p-3 rounded-md bg-[#030712] border border-zinc-800 font-mono text-xs text-emerald-400 whitespace-pre-wrap">
+                  {currentExercise.expectedOutput}
                 </pre>
               </div>
-            )}
+
+              {/* Hint & Solution Buttons */}
+              <div className="flex flex-wrap items-center gap-2 pt-2">
+                <button
+                  onClick={() => {
+                    soundManager.playClick();
+                    setShowHint(!showHint);
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 hover:text-white transition"
+                >
+                  <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{showHint ? 'Hide Hint' : 'Show Hint'}</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    soundManager.playClick();
+                    setShowSolution(!showSolution);
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 hover:text-white transition"
+                >
+                  <Eye className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>{showSolution ? 'Hide Solution' : 'View Reference Solution'}</span>
+                </button>
+              </div>
+
+              {showHint && (
+                <div className="p-3 rounded-md bg-amber-950/20 border border-amber-500/30 text-xs text-amber-200/90 leading-relaxed flex items-start gap-2">
+                  <HelpCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="font-semibold block mb-0.5">Implementation Hint:</strong>
+                    {currentExercise.hint}
+                  </div>
+                </div>
+              )}
+
+              {showSolution && currentExercise.solutionCode && (
+                <div className="space-y-1.5 p-3 rounded-md bg-zinc-900/90 border border-zinc-800">
+                  <div className="text-[11px] font-mono text-cyan-400 font-semibold">
+                    Canonical Reference Solution:
+                  </div>
+                  <pre className="p-3 rounded-md bg-[#030712] font-mono text-xs text-cyan-300 overflow-x-auto">
+                    <code>{currentExercise.solutionCode}</code>
+                  </pre>
+                </div>
+              )}
           </div>
         </div>
 
@@ -414,16 +414,16 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
           }`}
         >
           {/* Editor Container */}
-          <div className="glass-panel border border-slate-800 rounded-2xl overflow-hidden bg-[#070b14] flex flex-col shadow-sm">
+          <div className="border border-zinc-800 rounded-lg overflow-hidden bg-zinc-950 flex flex-col shadow-sm">
             {/* Action Bar */}
-            <div className="flex flex-wrap items-center justify-between p-3 border-b border-slate-800/80 bg-slate-900/60 gap-2">
+            <div className="flex flex-wrap items-center justify-between p-3 border-b border-zinc-800 bg-zinc-900/60 gap-2">
               <div className="flex items-center gap-2">
                 <div className="flex gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
                   <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                 </div>
-                <span className="text-xs font-mono text-slate-300 font-medium pl-1">
+                <span className="text-xs font-mono text-zinc-300 font-medium pl-1">
                   solution.cpp
                 </span>
               </div>
@@ -431,7 +431,7 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleResetCode}
-                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition text-xs"
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-md text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors text-xs"
                   title="Reset to starter code"
                 >
                   <RotateCcw className="w-3 h-3" />
@@ -440,7 +440,7 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
 
                 <button
                   onClick={() => onOpenInSandbox(currentCode)}
-                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/40 transition text-xs border border-cyan-500/30"
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-md text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/40 transition-colors text-xs border border-cyan-500/30"
                   title="Trace memory line-by-line in Sandbox"
                 >
                   <Cpu className="w-3 h-3" />
@@ -450,7 +450,7 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
 
                 <button
                   onClick={handleRunCode}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition border border-slate-700"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium transition-colors border border-zinc-700"
                 >
                   <Play className="w-3 h-3 text-cyan-400" />
                   <span>Run</span>
@@ -458,7 +458,7 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
 
                 <button
                   onClick={handleValidateExercise}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs transition shadow-sm"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors shadow-sm"
                 >
                   <Check className="w-3.5 h-3.5" />
                   <span>Validate & Submit</span>
@@ -468,7 +468,7 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
 
             {/* Code Input */}
             <div className="relative flex">
-              <div className="select-none py-3.5 px-2 bg-slate-950/80 border-r border-slate-800/80 font-mono text-[11px] text-slate-600 text-right w-10 shrink-0">
+              <div className="select-none py-3.5 px-2 bg-zinc-950 border-r border-zinc-800 font-mono text-[11px] text-zinc-600 text-right w-10 shrink-0">
                 {currentCode.split('\n').map((_, idx) => (
                   <div key={idx}>{idx + 1}</div>
                 ))}
@@ -485,7 +485,7 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
           {/* Validation Status Banner */}
           {validationStatus && (
             <div
-              className={`p-4 rounded-2xl border transition-all ${
+              className={`p-4 rounded-lg border transition-all ${
                 validationStatus.passed
                   ? 'bg-emerald-950/20 border-emerald-500/40 text-emerald-300'
                   : 'bg-rose-950/20 border-rose-500/40 text-rose-300'
@@ -510,16 +510,16 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
           )}
 
           {/* Output Terminal */}
-          <div className="glass-panel border border-slate-800 rounded-2xl overflow-hidden bg-[#070b14]">
-            <div className="flex items-center justify-between p-3 border-b border-slate-800/80 bg-slate-900/60">
-              <span className="text-xs font-mono text-slate-300 font-semibold flex items-center gap-2">
+          <div className="border border-zinc-800 rounded-lg overflow-hidden bg-zinc-950">
+            <div className="flex items-center justify-between p-3 border-b border-zinc-800 bg-zinc-900/60">
+              <span className="text-xs font-mono text-zinc-300 font-semibold flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-emerald-400" />
                 Standard Output (Console)
               </span>
               {stdoutOutput !== null && (
                 <button
                   onClick={() => setStdoutOutput(null)}
-                  className="text-[11px] text-slate-500 hover:text-slate-300 transition"
+                  className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
                 >
                   Clear Console
                 </button>
@@ -527,7 +527,7 @@ export const ExercisesView: React.FC<ExercisesViewProps> = ({
             </div>
             <pre className="p-3.5 sm:p-4 text-xs font-mono text-emerald-400 bg-[#030712] min-h-[120px] max-h-[220px] overflow-y-auto whitespace-pre-wrap">
               {stdoutOutput ?? (
-                <span className="text-slate-600 italic">
+                <span className="text-zinc-600 italic">
                   Press &ldquo;Run&rdquo; or &ldquo;Validate &amp; Submit&rdquo; to execute code and view output...
                 </span>
               )}

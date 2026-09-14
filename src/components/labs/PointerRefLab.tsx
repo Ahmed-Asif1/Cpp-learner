@@ -76,73 +76,73 @@ int main() {
   return (
     <div className="space-y-6">
       {/* Overview Banner */}
-      <div className="glass-panel p-6 border border-slate-800 rounded-2xl bg-gradient-to-r from-slate-900/90 to-slate-900/40">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2 mb-1">
+      <div className="rounded-lg p-5 sm:p-6 border border-zinc-800 bg-zinc-900/60">
+        <h2 className="text-lg font-bold text-zinc-100 tracking-tight flex items-center gap-2 mb-1">
           <Compass className="w-5 h-5 text-cyan-400" />
           <span>Interactive Pointer vs Reference Simulator</span>
         </h2>
-        <p className="text-xs text-slate-300 max-w-3xl leading-relaxed">
-          Master the exact difference between raw values, memory pointers (`type*`), and references (`type&`). Observe physical addresses in RAM and see how each mutates the underlying hardware slot.
+        <p className="text-xs text-zinc-400 max-w-3xl leading-relaxed">
+          Master the exact difference between raw values, memory pointers (<code className="font-mono text-zinc-300">type*</code>), and references (<code className="font-mono text-zinc-300">type&</code>). Observe physical addresses in RAM and see how each mutates the underlying hardware slot.
         </p>
       </div>
 
       {/* Memory Grid Comparison */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Box 1: Original Variable */}
-        <div className="glass-panel p-5 border border-cyan-500/30 bg-cyan-950/10 rounded-2xl space-y-3">
+        <div className="rounded-lg p-4 sm:p-5 border border-zinc-800 bg-zinc-900/40 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono font-bold text-cyan-400">int original</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 border border-cyan-500/40 text-cyan-300">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-950 border border-cyan-500/40 text-cyan-300 tabular-nums">
               Address: {targetAddr}
             </span>
           </div>
-          <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl text-center">
-            <div className="text-2xl font-mono font-black text-cyan-400">{targetVal}</div>
-            <div className="text-[11px] text-slate-400 mt-1">Direct Value (4 bytes)</div>
+          <div className="p-4 bg-zinc-950 border border-zinc-800 rounded-md text-center">
+            <div className="text-2xl font-mono font-bold text-cyan-400 tabular-nums">{targetVal}</div>
+            <div className="text-[11px] text-zinc-400 mt-1">Direct Value (4 bytes)</div>
           </div>
           <button
             onClick={mutateViaVal}
-            className="w-full py-2 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 transition"
+            className="w-full py-1.5 rounded-md text-xs font-medium bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 transition-colors"
           >
             original += 10
           </button>
         </div>
 
         {/* Box 2: Pointer */}
-        <div className="glass-panel p-5 border border-amber-500/30 bg-amber-950/10 rounded-2xl space-y-3">
+        <div className="rounded-lg p-4 sm:p-5 border border-zinc-800 bg-zinc-900/40 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono font-bold text-amber-400">int* ptr = &original</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 border border-amber-500/40 text-amber-300">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-950 border border-amber-500/40 text-amber-300 tabular-nums">
               Address: {pointerAddr}
             </span>
           </div>
-          <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl text-center">
-            <div className="text-base font-mono font-bold text-amber-400">{targetAddr}</div>
-            <div className="text-[11px] text-slate-400 mt-1">Holds Address of original (8 bytes)</div>
+          <div className="p-4 bg-zinc-950 border border-zinc-800 rounded-md text-center">
+            <div className="text-base font-mono font-bold text-amber-400 tabular-nums">{targetAddr}</div>
+            <div className="text-[11px] text-zinc-400 mt-1">Holds Address of original (8 bytes)</div>
           </div>
           <button
             onClick={mutateViaPtr}
-            className="w-full py-2 rounded-xl text-xs font-semibold bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 transition"
+            className="w-full py-1.5 rounded-md text-xs font-medium bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 transition-colors"
           >
             *ptr += 50 (Dereference Mutate)
           </button>
         </div>
 
         {/* Box 3: Reference */}
-        <div className="glass-panel p-5 border border-emerald-500/30 bg-emerald-950/10 rounded-2xl space-y-3">
+        <div className="rounded-lg p-4 sm:p-5 border border-zinc-800 bg-zinc-900/40 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono font-bold text-emerald-400">int& ref = original</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/40 text-emerald-300">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-950 border border-emerald-500/40 text-emerald-300 tabular-nums">
               Shares: {targetAddr}
             </span>
           </div>
-          <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-xl text-center">
-            <div className="text-2xl font-mono font-black text-emerald-400">{targetVal}</div>
-            <div className="text-[11px] text-slate-400 mt-1">Indivisible Alias (0 extra bytes)</div>
+          <div className="p-4 bg-zinc-950 border border-zinc-800 rounded-md text-center">
+            <div className="text-2xl font-mono font-bold text-emerald-400 tabular-nums">{targetVal}</div>
+            <div className="text-[11px] text-zinc-400 mt-1">Indivisible Alias (0 extra bytes)</div>
           </div>
           <button
             onClick={mutateViaRef}
-            className="w-full py-2 rounded-xl text-xs font-semibold bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 transition"
+            className="w-full py-1.5 rounded-md text-xs font-medium bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 transition-colors"
           >
             ref += 100 (Alias Mutate)
           </button>
@@ -150,14 +150,14 @@ int main() {
       </div>
 
       {/* Live Event Log */}
-      <div className="glass-panel p-4 border border-slate-800 rounded-2xl bg-slate-950/80">
-        <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-          <span className="text-xs font-mono text-slate-400 font-semibold">Memory Operation Log</span>
-          <button onClick={handleReset} className="text-xs text-slate-500 hover:text-slate-300 flex items-center gap-1">
+      <div className="rounded-lg p-4 border border-zinc-800 bg-zinc-950/80">
+        <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-800">
+          <span className="text-xs font-mono text-zinc-400 font-semibold">Memory Operation Log</span>
+          <button onClick={handleReset} className="text-xs text-zinc-500 hover:text-zinc-300 flex items-center gap-1 transition-colors">
             <RotateCcw className="w-3 h-3" /> Reset
           </button>
         </div>
-        <div className="space-y-1 font-mono text-xs text-slate-300 max-h-28 overflow-y-auto">
+        <div className="space-y-1 font-mono text-xs text-zinc-300 max-h-28 overflow-y-auto">
           {logs.map((log, idx) => (
             <div key={idx} className="flex items-center gap-2">
               <span className="text-cyan-400">»</span>
@@ -168,25 +168,25 @@ int main() {
       </div>
 
       {/* Interactive Code Demonstration */}
-      <div className="glass-panel border border-slate-800 rounded-2xl overflow-hidden bg-[#070b14]">
-        <div className="flex items-center justify-between p-3 border-b border-slate-800 bg-slate-900/70">
-          <span className="text-xs font-mono text-slate-200 font-semibold flex items-center gap-2">
+      <div className="rounded-lg border border-zinc-800 overflow-hidden bg-zinc-950">
+        <div className="flex items-center justify-between p-3 border-b border-zinc-800 bg-zinc-900/70">
+          <span className="text-xs font-mono text-zinc-200 font-semibold flex items-center gap-2">
             <Terminal className="w-4 h-4 text-emerald-400" />
             <span>Interactive Demonstration: Pointers & References</span>
           </span>
           <button
             onClick={handleRunCode}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-colors shadow-sm"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             <span>Run Code »</span>
           </button>
         </div>
-        <pre className="p-4 text-xs font-mono text-emerald-300 overflow-x-auto bg-[#070b14]">
+        <pre className="p-4 text-xs font-mono text-emerald-300 overflow-x-auto bg-zinc-950">
           <code>{sampleCode}</code>
         </pre>
         {runOutput !== null && (
-          <div className="p-3 bg-[#030712] border-t border-slate-800">
+          <div className="p-3 bg-[#030712] border-t border-zinc-800">
             <div className="text-[11px] font-mono text-emerald-400 font-bold mb-1">Standard Output:</div>
             <pre className="text-xs font-mono text-emerald-300 whitespace-pre-wrap">{runOutput}</pre>
           </div>

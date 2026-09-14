@@ -16,6 +16,12 @@ function getRedis(): Redis | null {
   }
 }
 
+function isValidUsername(name: unknown): name is string {
+  if (!name || typeof name !== 'string') return false;
+  const trimmed = name.trim();
+  return trimmed.length >= 2 && trimmed.length <= 24 && /^[a-zA-Z0-9_-]+$/.test(trimmed);
+}
+
 function userKey(username: string): string {
   return `cpp_odyssey:progress:${username.toLowerCase().trim()}`;
 }
@@ -26,6 +32,10 @@ export async function GET(request: NextRequest) {
 
   if (!username || username.trim() === '') {
     return NextResponse.json({ error: 'username is required' }, { status: 400 });
+  }
+
+  if (!isValidUsername(username)) {
+    return NextResponse.json({ error: 'Invalid username format (2-24 chars, alphanumeric, _ or -)' }, { status: 400 });
   }
 
   const redis = getRedis();
@@ -53,6 +63,10 @@ export async function POST(request: NextRequest) {
   const { username, progress } = body;
   if (!username || !progress) {
     return NextResponse.json({ error: 'username and progress are required' }, { status: 400 });
+  }
+
+  if (!isValidUsername(username)) {
+    return NextResponse.json({ error: 'Invalid username format (2-24 chars, alphanumeric, _ or -)' }, { status: 400 });
   }
 
   const redis = getRedis();

@@ -133,18 +133,18 @@ export const PointerMazeGame: React.FC<PointerMazeGameProps> = ({ onEarnXp }) =>
   return (
     <div className="max-w-[1400px] mx-auto p-4 space-y-6">
       {/* Top Banner */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-zinc-800">
         <div>
-          <h1 className="text-xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-lg sm:text-xl font-bold text-zinc-100 tracking-tight flex items-center gap-2">
             <Compass className="w-5 h-5 text-cyan-400" />
             <span>Pointer Maze: The Memory Hop Odyssey</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-zinc-400 mt-0.5">
             Follow pointer addresses, calculate memory offsets, and click the correct destination cell in physical RAM.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           {MAZE_LEVELS.map((lvl, idx) => (
             <button
               key={lvl.id}
@@ -153,10 +153,10 @@ export const PointerMazeGame: React.FC<PointerMazeGameProps> = ({ onEarnXp }) =>
                 setLevelIndex(idx);
                 handleReset();
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold border transition ${
+              className={`px-2.5 py-1.5 rounded-md text-xs font-mono font-bold border transition-colors ${
                 idx === levelIndex
-                  ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-sm'
-                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                  ? 'bg-zinc-800 text-cyan-300 border-zinc-700 shadow-sm'
+                  : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
               }`}
             >
               Lvl {idx + 1}
@@ -166,46 +166,46 @@ export const PointerMazeGame: React.FC<PointerMazeGameProps> = ({ onEarnXp }) =>
       </div>
 
       {/* Target Mission Card */}
-      <div className="glass-panel p-5 border border-cyan-500/30 bg-gradient-to-r from-cyan-950/20 to-slate-900/40 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+      <div className="rounded-lg p-5 border border-zinc-800 bg-zinc-900/60 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold mb-1">
+          <div className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-1">
             {level.title}
           </div>
-          <div className="text-lg font-mono font-bold text-white flex items-center gap-2">
+          <div className="text-base sm:text-lg font-mono font-bold text-zinc-100 flex items-center gap-2">
             <span>Evaluate:</span>
-            <code className="bg-slate-950 px-2.5 py-1 rounded-lg border border-cyan-500/40 text-cyan-300">
+            <code className="bg-zinc-950 px-2.5 py-1 rounded-md border border-zinc-800 text-cyan-300">
               {level.expression}
             </code>
           </div>
-          <div className="text-xs text-slate-300 mt-1.5 font-mono">
+          <div className="text-xs text-zinc-400 mt-1.5 font-mono">
             Initial pointer register: <span className="text-emerald-400 font-bold">{level.startPointer}</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <button
             onClick={handleReset}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs border border-slate-700 transition"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs border border-zinc-800 transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset Trace</span>
           </button>
-          <div className="text-xs font-mono bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-amber-400">
+          <div className="text-xs font-mono bg-zinc-950 border border-zinc-800 px-2.5 py-1.5 rounded-md text-amber-400 tabular-nums">
             Hops Taken: {hops.length}
           </div>
         </div>
       </div>
 
       {/* Physical RAM Memory Grid */}
-      <div className="glass-panel p-6 border border-slate-800 rounded-2xl space-y-4">
+      <div className="rounded-lg p-5 sm:p-6 border border-zinc-800 bg-zinc-900/40 space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center gap-2">
+          <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold flex items-center gap-2">
             <Layers className="w-4 h-4 text-emerald-400" /> Physical RAM Address Space (Click a cell to dereference)
           </h3>
-          <span className="text-[11px] text-slate-500 font-mono">32-bit hex addresses</span>
+          <span className="text-[11px] text-zinc-500 font-mono">32-bit hex addresses</span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
           {level.memoryCells.map((cell) => {
             const isSelected = selectedAddress === cell.address;
             const isHop = hops.includes(cell.address);
@@ -214,30 +214,30 @@ export const PointerMazeGame: React.FC<PointerMazeGameProps> = ({ onEarnXp }) =>
               <button
                 key={cell.address}
                 onClick={() => handleCellClick(cell)}
-                className={`p-4 rounded-xl border text-left transition-all relative font-mono group ${
+                className={`p-3 rounded-md border text-left transition-colors relative font-mono group ${
                   isSelected && cell.isTarget
-                    ? 'bg-emerald-950 border-emerald-500 text-emerald-200 scale-105'
+                    ? 'bg-emerald-950/70 border-emerald-500 text-emerald-200'
                     : isSelected && !cell.isTarget
                       ? 'bg-rose-950/40 border-rose-500/60 text-rose-200'
                       : isHop
                         ? 'bg-cyan-950/30 border-cyan-500/50 text-cyan-200'
-                        : 'bg-slate-900/80 border-slate-800 hover:border-slate-700 hover:bg-slate-850 text-slate-300'
+                        : 'bg-zinc-950/80 border-zinc-800 hover:border-zinc-700 text-zinc-300'
                 }`}
               >
-                <div className="flex items-center justify-between text-[11px] text-slate-500 mb-1">
+                <div className="flex items-center justify-between text-[10px] text-zinc-500 mb-1 tabular-nums">
                   <span>{cell.address}</span>
                   {cell.label && (
                     <span className="text-[10px] text-cyan-400 font-semibold">{cell.label}</span>
                   )}
                 </div>
 
-                <div className="text-sm font-bold text-white group-hover:text-cyan-300 transition">
+                <div className="text-sm font-bold text-zinc-100 group-hover:text-cyan-300 transition-colors">
                   {String(cell.value)}
                 </div>
 
                 {isSelected && cell.isTarget && (
                   <div className="absolute top-2 right-2 text-emerald-400">
-                    <CheckCircle2 className="w-4 h-4" />
+                    <CheckCircle2 className="w-3.5 h-3.5" />
                   </div>
                 )}
               </button>
@@ -248,13 +248,13 @@ export const PointerMazeGame: React.FC<PointerMazeGameProps> = ({ onEarnXp }) =>
 
       {/* Success Notification & Explanation */}
       {isSuccess ? (
-        <div className="glass-panel p-6 border border-emerald-500/40 bg-emerald-950/20 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+        <div className="rounded-lg p-5 sm:p-6 border border-emerald-500/40 bg-emerald-950/20 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm mb-1">
+            <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm mb-1 tracking-tight">
               <ShieldCheck className="w-5 h-5" />
               <span>Target Memory Address Reached! (+150 XP)</span>
             </div>
-            <p className="text-xs text-slate-300 max-w-xl leading-relaxed">
+            <p className="text-xs text-zinc-300 max-w-xl leading-relaxed">
               {level.explanation}
             </p>
           </div>
@@ -262,15 +262,15 @@ export const PointerMazeGame: React.FC<PointerMazeGameProps> = ({ onEarnXp }) =>
           <button
             onClick={handleNextLevel}
             disabled={levelIndex === MAZE_LEVELS.length - 1}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition disabled:opacity-30 shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 rounded-md bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-colors disabled:opacity-30 shadow-sm"
           >
             <span>{levelIndex < MAZE_LEVELS.length - 1 ? 'Next Memory Maze' : 'All Mazes Cleared!'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       ) : (
-        <div className="glass-panel p-4 border border-slate-800 rounded-xl text-xs text-slate-400 flex items-center justify-between">
-          <span><strong>Hint:</strong> {level.hint}</span>
+        <div className="rounded-md p-3 border border-zinc-800 bg-zinc-950/80 text-xs text-zinc-400 flex items-center justify-between">
+          <span><strong className="text-zinc-200">Hint:</strong> {level.hint}</span>
           <span className="text-[11px] font-mono text-cyan-400">Click the cell you believe contains the final value.</span>
         </div>
       )}

@@ -188,9 +188,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   return (
-    <div className="glass-panel border border-slate-800 rounded-xl flex flex-col h-full overflow-hidden bg-[#070b14]">
+    <div className="border border-zinc-800 rounded-lg flex flex-col h-full overflow-hidden bg-zinc-950">
       {/* Top Action Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-2 sm:p-2.5 border-b border-slate-800 bg-slate-900/70 gap-2 shrink-0">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-2 sm:p-2.5 border-b border-zinc-800 bg-zinc-900/70 gap-2 shrink-0">
         {/* Preset Selector */}
         <div className="flex items-center gap-2 min-w-0">
           <BookOpen className="w-4 h-4 text-cyan-400 shrink-0" />
@@ -199,7 +199,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
               soundManager.playClick();
               onSelectPreset(e.target.value);
             }}
-            className="w-full sm:w-auto bg-slate-950 border border-slate-700 text-xs rounded-lg px-2.5 py-1.5 text-slate-200 focus:outline-none focus:border-cyan-500 font-sans cursor-pointer truncate max-w-full sm:max-w-[240px]"
+            className="w-full sm:w-auto bg-zinc-950 border border-zinc-700 text-xs rounded-md px-2.5 py-1.5 text-zinc-200 focus:outline-none focus:border-cyan-500 font-sans cursor-pointer truncate max-w-full sm:max-w-[240px]"
             defaultValue=""
           >
             <option value="" disabled>Load C++ Code Example...</option>
@@ -219,7 +219,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
               soundManager.playClick();
               onRunAll();
             }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-colors shadow-sm"
             title="Execute code directly (Ctrl+Enter)"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
@@ -227,14 +227,14 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           </button>
 
           {/* Stepping controls */}
-          <div className="flex items-center bg-slate-950/80 border border-slate-800 rounded-lg p-0.5 gap-0.5">
+          <div className="flex items-center bg-zinc-950 border border-zinc-800 rounded-md p-0.5 gap-0.5">
             {isRunning ? (
               <button
                 onClick={() => {
                   soundManager.playClick();
                   onPause();
                 }}
-                className="flex items-center gap-1 px-2 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-semibold text-xs transition"
+                className="flex items-center gap-1 px-2 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-semibold text-xs transition-colors"
                 title="Pause Execution"
               >
                 <Pause className="w-3 h-3 fill-current" />
@@ -246,7 +246,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                   soundManager.playClick();
                   onPlay();
                 }}
-                className="flex items-center gap-1 px-2 py-1 rounded hover:bg-slate-800 text-cyan-300 font-semibold text-xs transition"
+                className="flex items-center gap-1 px-2 py-1 rounded hover:bg-zinc-800 text-cyan-300 font-semibold text-xs transition-colors"
                 title="Animate line-by-line"
               >
                 <Zap className="w-3 h-3" />
@@ -259,7 +259,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                 soundManager.playPointerHop();
                 onStep();
               }}
-              className="flex items-center gap-1 px-2 py-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white font-semibold text-xs transition"
+              className="flex items-center gap-1 px-2 py-1 rounded hover:bg-zinc-800 text-zinc-300 hover:text-white font-semibold text-xs transition-colors"
               title="Step Over Next Line"
             >
               <SkipForward className="w-3 h-3" />
@@ -271,7 +271,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
                 soundManager.playClick();
                 onReset();
               }}
-              className="p-1.5 rounded text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition"
+              className="p-1.5 rounded text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 transition-colors"
               title="Reset Code & Memory to Initial State"
             >
               <RotateCcw className="w-3 h-3" />
@@ -282,7 +282,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           <select
             value={speed}
             onChange={(e) => onSpeedChange(Number(e.target.value))}
-            className="bg-slate-950 border border-slate-800 text-[11px] rounded-lg px-2 py-1 text-slate-400 focus:outline-none hidden sm:inline-block"
+            className="bg-zinc-950 border border-zinc-800 text-[11px] rounded-md px-2 py-1 text-zinc-400 focus:outline-none hidden sm:inline-block"
             title="Animation Step Speed"
           >
             <option value={1500}>0.5x</option>
@@ -293,11 +293,11 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       </div>
 
       {/* Editor Body with Synchronized Gutter */}
-      <div className="flex-1 flex overflow-hidden relative bg-[#070b14]">
+      <div className="flex-1 flex overflow-hidden relative bg-zinc-950">
         {/* Line Numbers Gutter */}
         <div
           ref={lineGutterRef}
-          className="w-10 sm:w-11 bg-slate-950/80 border-r border-slate-800/80 py-3 flex flex-col items-center select-none text-[11px] font-mono text-slate-600 shrink-0 overflow-hidden"
+          className="w-10 sm:w-11 bg-zinc-950 border-r border-zinc-800 py-3 flex flex-col items-center select-none text-[11px] font-mono text-zinc-600 shrink-0 overflow-hidden"
         >
           {lines.map((_, idx) => (
             <div
@@ -332,7 +332,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
             onScroll={handleScroll}
             onKeyDown={handleKeyDown}
             spellCheck={false}
-            className="w-full h-full bg-transparent font-mono text-xs sm:text-[13px] text-slate-200 resize-none outline-none leading-6 px-3 whitespace-pre overflow-auto z-10 relative selection:bg-cyan-500/30"
+            className="w-full h-full bg-transparent font-mono text-xs sm:text-[13px] text-zinc-200 resize-none outline-none leading-6 px-3 whitespace-pre overflow-auto z-10 relative selection:bg-cyan-500/30"
             style={{
               fontFamily: "'Fira Code', monospace",
               tabSize: 4,
@@ -342,12 +342,12 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       </div>
 
       {/* Footer Info */}
-      <div className="px-3 py-1.5 border-t border-slate-800/80 bg-slate-950/80 flex items-center justify-between text-[11px] text-slate-400 font-mono shrink-0">
+      <div className="px-3 py-1.5 border-t border-zinc-800 bg-zinc-950 flex items-center justify-between text-[11px] text-zinc-400 font-mono shrink-0">
         <div className="flex items-center gap-2">
           <Code2 className="w-3.5 h-3.5 text-cyan-400" />
           <span>C++20 (Ctrl+Enter to Run)</span>
         </div>
-        <div>
+        <div className="tabular-nums">
           Line {currentLineIndex + 1} of {lines.length}
         </div>
       </div>

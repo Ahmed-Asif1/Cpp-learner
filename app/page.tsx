@@ -11,7 +11,7 @@ import { NustCurriculumView } from '../src/components/nust/NustCurriculumView';
 import { CheatSheetModal } from '../src/components/layout/CheatSheetModal';
 import { AchievementsModal } from '../src/components/layout/AchievementsModal';
 import { UsernameModal } from '../src/components/layout/UsernameModal';
-import { calculateLevel, loadProgress, saveProgress, loadProgressFromDB, saveProgressToDB, DEFAULT_PROGRESS } from '../src/services/storage';
+import { calculateLevel, loadProgress, saveProgress, loadProgressFromDB, saveProgressToDB, mergeProgress, DEFAULT_PROGRESS } from '../src/services/storage';
 import { UserProgress } from '../src/types';
 import { soundManager } from '../src/services/soundEffects';
 import confetti from 'canvas-confetti';
@@ -35,11 +35,14 @@ export default function HomePage() {
     const stored = localStorage.getItem('cpp_odyssey_username');
     if (stored) {
       setUsername(stored);
-      // Load progress from DB and merge (DB wins)
+      // Load progress from DB and merge (conflict resolution)
       loadProgressFromDB(stored).then((dbProgress) => {
         if (dbProgress) {
-          setProgress(dbProgress);
-          saveProgress(dbProgress);
+          setProgress((current) => {
+            const merged = mergeProgress(current, dbProgress);
+            saveProgress(merged);
+            return merged;
+          });
         }
       });
     } else {
@@ -51,12 +54,14 @@ export default function HomePage() {
   const handleUsernameSet = useCallback(async (name: string) => {
     setUsername(name);
     setShowUsernameModal(false);
-    // Try to load existing progress from DB; merge if found
+    // Try to load existing progress from DB; merge with current local progress
     const dbProgress = await loadProgressFromDB(name);
-    if (dbProgress) {
-      setProgress(dbProgress);
-      saveProgress(dbProgress);
-    }
+    setProgress((current) => {
+      const merged = dbProgress ? mergeProgress(current, dbProgress) : current;
+      saveProgress(merged);
+      saveProgressToDB(name, merged);
+      return merged;
+    });
   }, []);
 
   // Sync sound manager with loaded setting
@@ -67,12 +72,12 @@ export default function HomePage() {
   const levelInfo = calculateLevel(progress.xp);
 
   // Helper: save locally + fire-and-forget to DB
-  const persistProgress = (updated: UserProgress) => {
+  const persistProgress = useCallback((updated: UserProgress) => {
     saveProgress(updated);
     if (username) {
       saveProgressToDB(username, updated); // fire-and-forget
     }
-  };
+  }, [username]);
 
   // Handle XP gain and leveling
   const handleAddXp = useCallback((amount: number, newBadgeId?: string) => {
@@ -112,7 +117,7 @@ export default function HomePage() {
     });
   }, [persistProgress]);
 
-  const handleCompleteLesson = (lessonId: string, xpEarned: number) => {
+  const handleCompleteLesson = useCallback((lessonId: string, xpEarned: number) => {
     setProgress((prev) => {
       const alreadyCompleted = prev.completedLessons.includes(lessonId);
       const updatedLessons = alreadyCompleted
@@ -143,9 +148,9 @@ export default function HomePage() {
       persistProgress(updated);
       return updated;
     });
-  };
+  }, [persistProgress]);
 
-  const handleSolveChallenge = (challengeId: string, xpEarned: number) => {
+  const handleSolveChallenge = useCallback((challengeId: string, xpEarned: number) => {
     setProgress((prev) => {
       const alreadySolved = prev.completedChallenges.includes(challengeId);
       const updatedChallenges = alreadySolved
@@ -182,9 +187,9 @@ export default function HomePage() {
       persistProgress(updated);
       return updated;
     });
-  };
+  }, [persistProgress]);
 
-  const handleSolveExercise = (exerciseId: string, xpEarned: number) => {
+  const handleSolveExercise = useCallback((exerciseId: string, xpEarned: number) => {
     setProgress((prev) => {
       const currentCompleted = prev.completedExercises || [];
       const alreadySolved = currentCompleted.includes(exerciseId);
@@ -222,9 +227,9 @@ export default function HomePage() {
       persistProgress(updated);
       return updated;
     });
-  };
+  }, [persistProgress]);
 
-  const handleToggleSound = () => {
+  const handleToggleSound = useCallback(() => {
     setProgress((prev) => {
       const newSound = !prev.soundEnabled;
       soundManager.setMuted(!newSound);
@@ -232,15 +237,15 @@ export default function HomePage() {
       persistProgress(updated);
       return updated;
     });
-  };
+  }, [persistProgress]);
 
-  const handleOpenInSandbox = (code: string) => {
+  const handleOpenInSandbox = useCallback((code: string) => {
     setSandboxPresetCode(code);
     setActiveTab('sandbox');
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#070a12] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">

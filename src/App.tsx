@@ -152,7 +152,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-[#070b14] py-6 px-4 text-center text-xs text-slate-500 font-mono">
+      <footer className="border-t border-zinc-800/80 bg-zinc-950 py-5 px-4 text-center text-xs text-zinc-500 font-mono">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />

@@ -1,5 +1,12 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#070a12',
+};
 
 export const metadata: Metadata = {
   title: 'C++ Odyssey | Interactive C++ & SEECS NUST BSCS Platform',
@@ -25,7 +32,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#070a12] text-slate-100 min-h-screen antialiased selection:bg-cyan-500/30 selection:text-cyan-200" suppressHydrationWarning>
+      <body className="bg-[#070a12] text-slate-100 min-h-screen antialiased selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden w-full" suppressHydrationWarning>
         {children}
       </body>
     </html>

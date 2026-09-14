@@ -13,31 +13,31 @@ export const LabsView: React.FC = () => {
   return (
     <div className="max-w-[1400px] mx-auto p-4 space-y-6">
       {/* Top Navigator */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-zinc-800">
         <div>
-          <h1 className="text-xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-lg sm:text-xl font-bold text-zinc-100 tracking-tight flex items-center gap-2">
             <Layers className="w-5 h-5 text-cyan-400" />
             <span>Interactive C++ Architecture & STL Labs</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-zinc-400 mt-0.5">
             Hands-on visual playgrounds demonstrating memory mechanics, cache lines, pointer addresses, struct padding, and language comparisons.
           </p>
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex flex-wrap items-center gap-1.5 bg-slate-900 border border-slate-800 p-1.5 rounded-2xl">
+        <div className="flex flex-wrap items-center gap-1 bg-zinc-900/80 border border-zinc-800 p-1 rounded-lg">
           <button
             onClick={() => {
               soundManager.playClick();
               setActiveTab('vector');
             }}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition-colors ${
               activeTab === 'vector'
-                ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-zinc-800 text-cyan-300 font-semibold shadow-sm'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
             }`}
           >
-            <TrendingUp className="w-3.5 h-3.5" />
+            <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
             <span>std::vector Lab</span>
           </button>
 
@@ -46,13 +46,13 @@ export const LabsView: React.FC = () => {
               soundManager.playClick();
               setActiveTab('smart');
             }}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition-colors ${
               activeTab === 'smart'
-                ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-zinc-800 text-amber-300 font-semibold shadow-sm'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
             }`}
           >
-            <Zap className="w-3.5 h-3.5" />
+            <Zap className="w-3.5 h-3.5 text-amber-400" />
             <span>Smart Pointers</span>
           </button>
 
@@ -61,13 +61,13 @@ export const LabsView: React.FC = () => {
               soundManager.playClick();
               setActiveTab('pointer');
             }}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition-colors ${
               activeTab === 'pointer'
-                ? 'bg-emerald-500 text-slate-950 font-bold shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-zinc-800 text-emerald-300 font-semibold shadow-sm'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
             }`}
           >
-            <Compass className="w-3.5 h-3.5" />
+            <Compass className="w-3.5 h-3.5 text-emerald-400" />
             <span>Pointers & Refs</span>
           </button>
 
@@ -76,13 +76,13 @@ export const LabsView: React.FC = () => {
               soundManager.playClick();
               setActiveTab('padding');
             }}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition-colors ${
               activeTab === 'padding'
-                ? 'bg-pink-500 text-slate-950 font-bold shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-zinc-800 text-pink-300 font-semibold shadow-sm'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
             }`}
           >
-            <AlignJustify className="w-3.5 h-3.5" />
+            <AlignJustify className="w-3.5 h-3.5 text-pink-400" />
             <span>Struct Padding</span>
           </button>
 
@@ -91,13 +91,13 @@ export const LabsView: React.FC = () => {
               soundManager.playClick();
               setActiveTab('rosetta');
             }}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition-colors ${
               activeTab === 'rosetta'
-                ? 'bg-purple-500 text-slate-950 font-bold shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-zinc-800 text-purple-300 font-semibold shadow-sm'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5" />
+            <BookOpen className="w-3.5 h-3.5 text-purple-400" />
             <span>Rosetta Stone</span>
           </button>
         </div>

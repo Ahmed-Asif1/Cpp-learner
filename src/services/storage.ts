@@ -99,3 +99,27 @@ export async function saveProgressToDB(username: string, progress: UserProgress)
   }
 }
 
+/**
+ * Pure conflict resolution merging offline local and remote cloud progress.
+ * Adheres to TC3.2 specification: max XP, max Level, and union of arrays.
+ */
+export const mergeProgress = (local: UserProgress, remote: UserProgress): UserProgress => {
+  const mergedXp = Math.max(local.xp || 0, remote.xp || 0);
+  const calculated = calculateLevel(mergedXp);
+
+  return {
+    ...DEFAULT_PROGRESS,
+    ...local,
+    ...remote,
+    xp: mergedXp,
+    level: Math.max(calculated.level, local.level || 1, remote.level || 1),
+    completedLessons: Array.from(new Set([...(local.completedLessons || []), ...(remote.completedLessons || [])])),
+    completedChallenges: Array.from(new Set([...(local.completedChallenges || []), ...(remote.completedChallenges || [])])),
+    completedExercises: Array.from(new Set([...(local.completedExercises || []), ...(remote.completedExercises || [])])),
+    unlockedBadges: Array.from(new Set([...(local.unlockedBadges || []), ...(remote.unlockedBadges || [])])),
+    soundEnabled: local.soundEnabled ?? remote.soundEnabled ?? true,
+    lastActive: new Date().toISOString(),
+  };
+};
+
+

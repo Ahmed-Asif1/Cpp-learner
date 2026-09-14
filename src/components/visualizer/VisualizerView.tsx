@@ -131,19 +131,19 @@ export const VisualizerView: React.FC<VisualizerViewProps> = ({ onXpGain, initia
       {/* Visualizer Header banner */}
       <div className="flex flex-wrap items-center justify-between pb-1 gap-2">
         <div>
-          <h1 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-lg sm:text-xl font-bold text-zinc-100 tracking-tight flex items-center gap-2">
             <span className="text-cyan-400">⚡</span> Live C++ Memory & Execution Sandbox
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-zinc-400 mt-0.5">
             Execute C++ programs directly or step through instructions line-by-line to inspect physical stack frames, heap allocations, and pointer addresses.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300">
+        <div className="flex items-center gap-2 text-xs font-mono bg-zinc-950/80 border border-zinc-800 px-2.5 py-1.5 rounded-md text-zinc-300 tabular-nums">
           <span>Step {currentStep + 1} of {Math.max(1, snapshots.length)}</span>
-          <span className="text-slate-600">|</span>
+          <span className="text-zinc-700">|</span>
           <span className="text-emerald-400 font-semibold">{currentSnapshot.stack[0]?.variables.length || 0} Stack Vars</span>
-          <span className="text-slate-600">|</span>
+          <span className="text-zinc-700">|</span>
           <span className="text-amber-400 font-semibold">{currentSnapshot.heap.length} Heap Blocks</span>
         </div>
       </div>
