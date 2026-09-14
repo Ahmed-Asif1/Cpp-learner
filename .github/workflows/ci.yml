@@ -1,0 +1,44 @@
+﻿name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Typecheck, Test & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: TypeScript Compiler Verification
+        run: npx tsc --noEmit
+
+      - name: Run E2E Test Suite
+        run: node test-e2e.js
+
+      - name: Run C++ Simulator Engine Suite
+        run: node test-simulator.js
+
+      - name: Run Cross-Device Responsive Audit
+        run: node test-cross-device.js
+
+      - name: Production Next.js 14 Build
+        run: npm run build

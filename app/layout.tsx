@@ -15,6 +15,18 @@ export const metadata: Metadata = {
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>",
   },
+  openGraph: {
+    title: 'C++ Odyssey — Systems Mastery & SEECS NUST Hub',
+    description: 'Learn C++ from scratch with visual memory sandboxes, stack & heap inspectors, pointer simulators, and NUST SEECS course roadmaps.',
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'C++ Odyssey',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'C++ Odyssey — Interactive C++ Learning Platform',
+    description: 'Master C++ pointers, stack/heap memory, and computer science concepts visually right in your browser.',
+  },
 };
 
 export default function RootLayout({

@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "preview": "next start",
-    "test": "node --experimental-strip-types test-simulator.js"
+    "test": "node --experimental-strip-types test-simulator.js",
+    "test:all": "node test-e2e.js && node test-simulator.js && node test-cross-device.js"
   },
   "dependencies": {
     "@types/node": "^20.19.43",
