@@ -1,6 +1,12 @@
 # ⚡ C++ Odyssey: Interactive C++ Learning Platform
 
-An engaging, gamified, and deeply educational web application designed to teach C++ from the ground up to modern C++20/23 concepts in a visual, intuitive, and fun way.
+[![CI](https://github.com/Ahmed-Asif1/Cpp-learner/actions/workflows/ci.yml/badge.svg)](https://github.com/Ahmed-Asif1/Cpp-learner/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+
+An engaging, gamified, and deeply educational web application designed to teach C++ from the ground up to modern C++20/23 concepts in a visual, intuitive, and fun way. Built with a high-density, professional developer aesthetic inspired by Vercel and Linear.
 
 ---
 
@@ -17,12 +23,15 @@ An engaging, gamified, and deeply educational web application designed to teach 
 - **Standard Output Terminal**: Displays `std::cout` stream in real time.
 
 ### 2. 🚀 The Gamified Quest Curriculum (Zero to Hero)
-- **Module 1: The Forge (Fundamentals)**: Closeness to silicon, compilation model, streams (`cout`/`cin`), byte sizes, pass-by-value vs pass-by-reference.
-- **Module 2: The Matrix of Memory (Pointers & Dynamic Memory)**: Address-of `&`, dereference `*`, null pointers, stack vs heap, `new`/`delete`, dangling pointers.
+- **Module 0: First Steps (Zero to Running)**: Line-by-line Hello World breakdown, variables, types, and building a calculator. Ideal for total beginners!
+- **Module 1: The Forge (Fundamentals - CS110)**: Compilation model, streams (`cout`/`cin`), byte sizes, control flow.
+- **Module 2: The Matrix of Memory (Pointers - CS212/CS214)**: Address-of `&`, dereference `*`, null pointers, stack vs heap, `new`/`delete`, dangling pointers.
 - **Module 3: The Blueprint Realm (Classes & RAII)**: Structs vs classes, encapsulation, constructors/destructors, deterministic destruction, RAII.
 - **Module 4: The Modern Era (C++11 to C++23)**: `std::unique_ptr`, `std::shared_ptr`, `std::move`, move semantics, lambdas.
 - **Module 5: The STL Explorer**: `std::vector` capacity doubling, hash maps, red-black trees, algorithms.
-- **Interactive Checkpoint Quizzes**: Earn XP, level up titles (from *Unallocated Byte* to *C++ Archmage*), and unlock badges with celebratory sound & confetti.
+- **Module 6: The Systems Forge (Production Projects)**: Production server log parser with file streams, and 2D game state engine with OOP grids.
+- **Module 7: The Algorithm Arsenal (DSA Deep Dives)**: Custom dynamic array vector clone from scratch, and high-speed hash dictionary with chaining.
+- **Interactive Checkpoint Quizzes**: Shuffled answer options, XP rewards, rank titles (from *Junior Systems Trainee* to *Principal Systems Architect*), and confetti celebrations.
 
 ### 3. ⚔️ Bug Hunter Protocol: Diagnostic Arena
 - Real-world buggy C++ code challenges:
@@ -91,7 +100,7 @@ C++ Odyssey is built with **Next.js 14 App Router** and deploys to Vercel with z
 
 ### 1-Click Deployment
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/YOUR_REPO)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Ahmed-Asif1/Cpp-learner)
 
 ### Manual Steps:
 1. Push your repository to GitHub / GitLab / Bitbucket.
