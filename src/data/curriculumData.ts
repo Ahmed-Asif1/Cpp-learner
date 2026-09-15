@@ -285,6 +285,507 @@ int main() {
           },
         ],
       },
+      {
+        id: 'm0-l3',
+        moduleId: 'm0',
+        title: 'Control Structures: if, else if, else',
+        subtitle: 'Making decisions in your program based on conditions',
+        durationMinutes: 8,
+        xpReward: 80,
+        content: {
+          hook: 'Every useful program makes decisions. A grading app needs to check whether a score is an A, B, or C. A login form needs to check whether the password is correct. Control structures are how you encode those decisions in C++.',
+          mentalModel: 'Think of a control structure as a road with forks. Your program evaluates a condition (true or false) and takes the correct fork. If the first condition is true, it goes left. If not, it checks the next fork. If none match, it takes the default road (else).',
+          explanation: [
+            '`if (condition)` runs a block of code only when the condition is true.',
+            '`else if (condition)` is checked only when all previous conditions were false. You can chain as many as you need.',
+            '`else` is the fallback — it runs when no previous condition matched.',
+            'Comparison operators: `==` (equal), `!=` (not equal), `<`, `>`, `<=`, `>=`.',
+            'Logical operators: `&&` (AND — both must be true), `||` (OR — at least one must be true), `!` (NOT — flips the condition).',
+          ],
+          codeExample: `#include <iostream>
+using namespace std;
+
+int main() {
+    int score = 78;
+
+    // Determine the letter grade for the score
+    if (score >= 90) {
+        cout << "Grade: A" << endl;
+    } else if (score >= 80) {
+        cout << "Grade: B" << endl;
+    } else if (score >= 70) {
+        cout << "Grade: C" << endl;
+    } else if (score >= 60) {
+        cout << "Grade: D" << endl;
+    } else {
+        cout << "Grade: F" << endl;
+    }
+
+    return 0;
+}`,
+          examples: [
+            {
+              title: 'Example 1: ATM Withdrawal Check',
+              description: 'Validate whether a user has sufficient balance before allowing a withdrawal.',
+              code: `#include <iostream>
+using namespace std;
+
+int main() {
+    double accountBalance = 500.00;
+    double withdrawalAmount = 200.00;
+
+    if (withdrawalAmount <= 0) {
+        cout << "Error: Withdrawal amount must be positive." << endl;
+    } else if (withdrawalAmount > accountBalance) {
+        cout << "Error: Insufficient funds." << endl;
+    } else {
+        accountBalance -= withdrawalAmount;
+        cout << "Withdrawal successful." << endl;
+        cout << "Remaining balance: $" << accountBalance << endl;
+    }
+
+    return 0;
+}`,
+              expectedOutput: 'Withdrawal successful.\nRemaining balance: $300\n',
+              explanation: 'The program checks edge cases first (invalid amount, overdraft) before processing the transaction. This is a common defensive programming pattern.',
+            },
+            {
+              title: 'Example 2: Simple Login Check',
+              description: 'Check whether a username and password match expected values.',
+              code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string username = "admin";
+    string password = "secure123";
+
+    if (username == "admin" && password == "secure123") {
+        cout << "Login successful. Welcome, " << username << "!" << endl;
+    } else {
+        cout << "Login failed. Invalid credentials." << endl;
+    }
+
+    return 0;
+}`,
+              expectedOutput: 'Login successful. Welcome, admin!\n',
+              explanation: 'The && operator requires BOTH conditions to be true. If either the username or password is wrong, the else block runs.',
+            },
+          ],
+          deepDive: {
+            title: 'Short-Circuit Evaluation',
+            content: 'In `a && b`, if `a` is false, C++ never evaluates `b` — the result is already determined. This is called short-circuit evaluation. It is a useful performance trick: put the cheaper or most-likely-to-fail condition first.',
+          },
+          interactivePrompt: {
+            task: 'Write a program that reads a student\'s score and prints the corresponding letter grade (A: 90-100, B: 80-89, C: 70-79, D: 60-69, F: below 60).',
+            hint: 'Use if / else if / else with >= comparisons. Start with the highest grade first.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int score = 85; // Try different values
+
+    // Write your if / else if / else chain here
+
+    return 0;
+}`,
+          },
+        },
+        quiz: [
+          {
+            id: 'q0-5',
+            category: 'basics',
+            prompt: 'What is the output of this code?\n```cpp\nint userAge = 20;\nif (userAge >= 18) {\n    cout << "Adult";\n} else {\n    cout << "Minor";\n}\n```',
+            xpReward: 20,
+            options: [
+              {
+                text: 'Adult',
+                isCorrect: true,
+                explanation: 'Correct! 20 >= 18 is true, so the if block runs and prints "Adult".',
+              },
+              {
+                text: 'Minor',
+                isCorrect: false,
+                explanation: 'The else block only runs when the condition is false. 20 >= 18 is true.',
+              },
+              {
+                text: 'Compile error',
+                isCorrect: false,
+                explanation: 'This is valid C++ code and compiles without errors.',
+              },
+              {
+                text: 'Nothing is printed',
+                isCorrect: false,
+                explanation: 'Since the condition is true, the if block definitely executes.',
+              },
+            ],
+          },
+          {
+            id: 'q0-6',
+            category: 'basics',
+            prompt: 'Which operator checks whether two values are equal in C++?',
+            xpReward: 20,
+            options: [
+              {
+                text: '= (single equals)',
+                isCorrect: false,
+                explanation: 'A single = is the assignment operator. It sets a value, it does not compare.',
+              },
+              {
+                text: '== (double equals)',
+                isCorrect: true,
+                explanation: 'Correct! == is the equality comparison operator. It returns true if both sides are equal.',
+              },
+              {
+                text: '!= (not equals)',
+                isCorrect: false,
+                explanation: '!= checks whether two values are different, not equal.',
+              },
+              {
+                text: '<=> (spaceship operator)',
+                isCorrect: false,
+                explanation: '<=> is a three-way comparison operator (C++20). For simple equality, use ==.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'm0-l4',
+        moduleId: 'm0',
+        title: 'Loops: for and while',
+        subtitle: 'Repeating actions without repeating yourself',
+        durationMinutes: 10,
+        xpReward: 90,
+        content: {
+          hook: 'Imagine printing the numbers 1 to 100. You could write 100 cout statements — or you could write a loop that does it in 3 lines. Loops are one of the most powerful tools in programming.',
+          mentalModel: 'A loop is like a factory conveyor belt. You set up the belt once (initialize), define the stopping condition (check), and describe what happens at each step (update). The belt keeps running until the condition is no longer met.',
+          explanation: [
+            'A `for` loop is used when you know exactly how many times you want to repeat: `for (int i = 0; i < 10; i++)` — initialize `i`, run while `i < 10`, increment `i` each time.',
+            'A `while` loop is used when you repeat until a condition changes: `while (balance > 0)` — keep running as long as the condition is true.',
+            'Inside a loop body, `break` immediately exits the loop. `continue` skips the rest of the current iteration and goes to the next one.',
+            'An infinite loop (`while (true)`) runs forever. Always ensure your loop has a reachable exit condition.',
+            'The loop variable in a `for` loop (commonly `i`, `j`, or a descriptive name like `itemIndex`) is scoped to the loop — it does not exist outside it.',
+          ],
+          codeExample: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Count-controlled for loop: print 1 through 5
+    cout << "Counting up:" << endl;
+    for (int count = 1; count <= 5; count++) {
+        cout << "  Count: " << count << endl;
+    }
+
+    // Condition-driven while loop: simulate a balance being spent
+    double balance = 100.0;
+    int transactionCount = 0;
+
+    cout << "Processing transactions:" << endl;
+    while (balance >= 20.0) {
+        balance -= 20.0;
+        transactionCount++;
+        cout << "  Transaction " << transactionCount << " — Balance: $" << balance << endl;
+    }
+
+    return 0;
+}`,
+          examples: [
+            {
+              title: 'Example 1: Sum of Numbers (for loop)',
+              description: 'Use a for loop to sum all integers from 1 to 100.',
+              code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int total = 0;
+
+    for (int i = 1; i <= 100; i++) {
+        total += i; // Accumulate the sum
+    }
+
+    cout << "Sum of 1 to 100: " << total << endl;
+
+    return 0;
+}`,
+              expectedOutput: 'Sum of 1 to 100: 5050\n',
+              explanation: 'The loop runs 100 times. Each iteration adds the current value of i to total. This is a classic accumulator pattern.',
+            },
+            {
+              title: 'Example 2: Inventory Count (while loop)',
+              description: 'Process items from a warehouse until stock runs out.',
+              code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int itemCount = 10;
+    int itemsShipped = 0;
+
+    while (itemCount > 0) {
+        itemCount--;      // Remove one item from stock
+        itemsShipped++;   // Record the shipment
+    }
+
+    cout << "Items shipped: " << itemsShipped << endl;
+    cout << "Items remaining: " << itemCount << endl;
+
+    return 0;
+}`,
+              expectedOutput: 'Items shipped: 10\nItems remaining: 0\n',
+              explanation: 'The while loop continues as long as itemCount is greater than 0. Each iteration decrements the stock and increments the shipped counter.',
+            },
+          ],
+          deepDive: {
+            title: 'for vs while — When to Use Which',
+            content: 'Use a `for` loop when the number of iterations is known in advance (e.g., process 10 records, print a table of 12 months). Use a `while` loop when the stopping condition depends on runtime data (e.g., keep reading input until the user types "quit", keep processing transactions until the balance is zero). Both loops are equally powerful — the choice is about clarity.',
+          },
+          interactivePrompt: {
+            task: 'Write a program that uses a for loop to print the multiplication table for the number 7 (7×1 through 7×10).',
+            hint: 'Loop from i = 1 to 10. Inside the loop, print: "7 x " << i << " = " << 7 * i',
+            starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Write a for loop here that prints the 7x table
+
+    return 0;
+}`,
+          },
+        },
+        quiz: [
+          {
+            id: 'q0-7',
+            category: 'basics',
+            prompt: 'How many times does this loop execute?\n```cpp\nfor (int i = 0; i < 5; i++) {\n    cout << i;\n}\n```',
+            xpReward: 20,
+            options: [
+              {
+                text: '4 times',
+                isCorrect: false,
+                explanation: 'i starts at 0 and runs while i < 5. That gives us i = 0, 1, 2, 3, 4 — five iterations.',
+              },
+              {
+                text: '5 times',
+                isCorrect: true,
+                explanation: 'Correct! i goes 0, 1, 2, 3, 4. The loop stops when i reaches 5 (condition i < 5 becomes false).',
+              },
+              {
+                text: '6 times',
+                isCorrect: false,
+                explanation: 'The condition is strictly less than 5, so i = 5 is never executed.',
+              },
+              {
+                text: 'Infinite times',
+                isCorrect: false,
+                explanation: 'i++ ensures i grows each iteration, so the condition i < 5 will eventually become false.',
+              },
+            ],
+          },
+          {
+            id: 'q0-8',
+            category: 'basics',
+            prompt: 'What does the `break` statement do inside a loop?',
+            xpReward: 20,
+            options: [
+              {
+                text: 'Skips the current iteration and moves to the next one.',
+                isCorrect: false,
+                explanation: 'That is what `continue` does. `break` is more decisive.',
+              },
+              {
+                text: 'Immediately exits the loop entirely.',
+                isCorrect: true,
+                explanation: 'Correct! `break` terminates the loop immediately, and execution continues with the code after the loop.',
+              },
+              {
+                text: 'Pauses the loop for one second.',
+                isCorrect: false,
+                explanation: '`break` has nothing to do with timing. It exits the loop.',
+              },
+              {
+                text: 'Resets the loop counter to zero.',
+                isCorrect: false,
+                explanation: '`break` does not modify the loop variable — it exits the loop entirely.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'm0-l5',
+        moduleId: 'm0',
+        title: 'Basic Functions: Parameters & Return Types',
+        subtitle: 'Packaging reusable logic into named, callable blocks',
+        durationMinutes: 10,
+        xpReward: 100,
+        content: {
+          hook: 'You have already been using functions — `main()` is a function! Now you will learn to write your own. Functions let you name a block of logic, reuse it anywhere, and keep your code organized and readable.',
+          mentalModel: 'Think of a function as a vending machine. You put in specific inputs (parameters), a process happens inside the machine, and an output (the return value) comes out. You do not need to know how the machine works internally — you just use it.',
+          explanation: [
+            'A function signature has four parts: return type, name, parameters, and body. Example: `int add(int a, int b) { return a + b; }`',
+            'The return type tells the compiler what kind of value the function gives back. Use `void` when the function does not return anything.',
+            'Parameters are the inputs to a function. Each parameter has a type and a name. Multiple parameters are separated by commas.',
+            'Call a function by writing its name followed by arguments in parentheses: `int result = add(5, 3);`',
+            'Functions must be declared before they are called. You can define the full function above `main()`, or declare a prototype above `main()` and define the body below.',
+          ],
+          codeExample: `#include <iostream>
+using namespace std;
+
+// Function that calculates the total price after tax
+double calculateTotal(double itemPrice, double taxRate) {
+    double tax = itemPrice * taxRate;
+    return itemPrice + tax;
+}
+
+// Function with no return value (void)
+void printReceipt(double total) {
+    cout << "----------------------" << endl;
+    cout << "Total due: $" << total << endl;
+    cout << "----------------------" << endl;
+}
+
+int main() {
+    double price = 49.99;
+    double tax = 0.08; // 8% tax
+
+    double finalTotal = calculateTotal(price, tax);
+    printReceipt(finalTotal);
+
+    return 0;
+}`,
+          examples: [
+            {
+              title: 'Example 1: isEven — Returning bool',
+              description: 'A function that checks whether a number is even and returns true or false.',
+              code: `#include <iostream>
+using namespace std;
+
+// Returns true if the number is even, false if odd
+bool isEven(int number) {
+    return number % 2 == 0;
+}
+
+int main() {
+    int userInput = 42;
+
+    if (isEven(userInput)) {
+        cout << userInput << " is even." << endl;
+    } else {
+        cout << userInput << " is odd." << endl;
+    }
+
+    return 0;
+}`,
+              expectedOutput: '42 is even.\n',
+              explanation: 'The modulo operator % gives the remainder of division. If number % 2 == 0, the number divides evenly by 2, making it even.',
+            },
+            {
+              title: 'Example 2: getMax — Returning the Larger Value',
+              description: 'A function that takes two integers and returns the larger one.',
+              code: `#include <iostream>
+using namespace std;
+
+// Returns the larger of two integers
+int getMax(int firstValue, int secondValue) {
+    if (firstValue > secondValue) {
+        return firstValue;
+    } else {
+        return secondValue;
+    }
+}
+
+int main() {
+    int a = 17;
+    int b = 42;
+
+    cout << "The larger value is: " << getMax(a, b) << endl;
+
+    return 0;
+}`,
+              expectedOutput: 'The larger value is: 42\n',
+              explanation: 'The function compares two values and returns the winner. The caller receives the result and can use it directly in a cout statement.',
+            },
+          ],
+          deepDive: {
+            title: 'DRY Principle: Don\'t Repeat Yourself',
+            content: 'If you find yourself writing the same block of logic in two or more places, that is a signal to extract it into a function. Functions enforce the DRY (Don\'t Repeat Yourself) principle — one of the most fundamental ideas in software engineering. When a bug is found in that logic, you fix it in one place and every caller is automatically fixed.',
+          },
+          interactivePrompt: {
+            task: 'Write a function called `celsiusToFahrenheit` that takes a double parameter (temperature in Celsius) and returns the equivalent temperature in Fahrenheit. The formula is: F = (C × 9/5) + 32. Call it from main() and print the result.',
+            hint: 'Function signature: `double celsiusToFahrenheit(double celsius)`. Inside, return the formula result.',
+            starterCode: `#include <iostream>
+using namespace std;
+
+// Define your celsiusToFahrenheit function here
+
+int main() {
+    double tempCelsius = 100.0;
+
+    // Call your function and print the result
+
+    return 0;
+}`,
+          },
+        },
+        quiz: [
+          {
+            id: 'q0-9',
+            category: 'basics',
+            prompt: 'What return type should a function have if it does not return any value?',
+            xpReward: 20,
+            options: [
+              {
+                text: 'int',
+                isCorrect: false,
+                explanation: '`int` signals the function returns an integer. Use it only when you have a value to return.',
+              },
+              {
+                text: 'null',
+                isCorrect: false,
+                explanation: '`null` is not a return type in C++. It is used in other languages like Java.',
+              },
+              {
+                text: 'void',
+                isCorrect: true,
+                explanation: 'Correct! `void` means "this function returns nothing". It is the appropriate return type when the function only performs actions (like printing) without producing a value.',
+              },
+              {
+                text: 'empty',
+                isCorrect: false,
+                explanation: '`empty` is not a valid C++ return type keyword.',
+              },
+            ],
+          },
+          {
+            id: 'q0-10',
+            category: 'basics',
+            prompt: 'Given this function: `int multiply(int x, int y) { return x * y; }` — what does `multiply(4, 5)` evaluate to?',
+            xpReward: 25,
+            options: [
+              {
+                text: '9',
+                isCorrect: false,
+                explanation: '9 would be the result of addition (4 + 5). The function multiplies.',
+              },
+              {
+                text: '20',
+                isCorrect: true,
+                explanation: 'Correct! 4 × 5 = 20. The function returns the product of its two parameters.',
+              },
+              {
+                text: '45',
+                isCorrect: false,
+                explanation: '45 would come from concatenating the digits, but C++ does arithmetic — 4 * 5 = 20.',
+              },
+              {
+                text: 'Compile error',
+                isCorrect: false,
+                explanation: 'This is valid C++. The function signature matches the call, and the return type is int.',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
