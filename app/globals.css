@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config "../tailwind.config.js";
+@import "tailwindcss";
+@source "../src/**/*.{js,ts,jsx,tsx,mdx}";
 
 :root {
   --bg-primary: #070a12;
