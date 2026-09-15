@@ -96,3 +96,47 @@ Requested team:
   - 3.0 pts: Zero functional breakage; all search hooks, filtering menus, and progress stats work smoothly.
   - 2.0 pts: Flawless performance, zero runtime errors, and optimized rendering logic.
   - 2.0 pts: Alignment with the ultimate educational goal (clean readability, frictionless navigation).
+
+## 2026-09-15T11:35:40Z
+
+This is a single self-contained fix; keep it small and focused.
+Hotfix and layout debugging sprint to resolve overlapping UI elements on the C++ Odyssey dashboard: search row text collisions, top navbar right-tray compression, and container radii consistency.
+
+Working directory: c:\Users\ANC\Documents\Me\programming\hashtag
+Integrity mode: development
+
+Requested team:
+- Agent 1 (UI Bug Fixer): Resolves CSS/Flexbox collisions, fixes text overlaps, and cleans layout boundaries.
+- Agent 2 (Design Critic): Reviews the proposed fixes against standard layout rules, computes the quality score, and enforces the strict 8.5/10 threshold.
+
+## Requirements
+
+### R1. Search and Filter Row Collision Fix
+In `src/components/nust/NustCurriculumView.tsx`, eliminate text collisions and awkward wrapping between the search input, the `</> C++ Courses Only` filter toggle, and the `All 8 Semesters` select dropdown.
+- Refactor the row container into flex alignment with dedicated spacing (`gap-3 sm:gap-4`).
+- Ensure the search input box flexes/shrinks proportionally (`flex-1 min-w-[220px]`) while the interactive filter controls remain uncompressed (`shrink-0`) with ample breathing room.
+- Prevent button labels from wrapping awkwardly or smashing against the dropdown across desktop, laptop, and tablet viewports.
+
+### R2. Top Navbar Right Tray De-cluttering & Spacing
+In `src/components/layout/Navbar.tsx`:
+- Ensure the header container uses clean flex justification (`justify-between`) with balanced boundary padding (`px-4 sm:px-6 lg:px-8`) so user profile (`ahmed`) and XP meter (`Lvl X | Y/Z XP`) are not compressed against the viewport edge.
+- Group the utility actions (`Guide`, `CheatSheet`, `Trophy`, `Sound`) and user cluster (`XP meter`, `Profile button`) into a cohesive horizontal layout with uniform vertical centering and unified gap spacing (`gap-2 sm:gap-3`).
+- Maintain minimum 40px–44px touch targets on mobile and desktop without horizontal overflow.
+
+### R3. Container Radii Balance
+Ensure all main semester blocks, filter bars, and course items (e.g., `CS110`, `CS212`) strictly adhere to the flat 8px corner standard (`rounded-lg` / `rounded-md`).
+
+## Acceptance Criteria
+
+### 1. Automated Compiler & Test Suite Verification
+- [ ] `node test-e2e.js` passes 39/39 tests (100%).
+- [ ] `node test-simulator.js` passes 4/4 C++ simulator tests (100%).
+- [ ] `node test-cross-device.js` passes 9/9 responsive checks (100%).
+- [ ] `npx tsc --noEmit` exits with code 0 (zero TypeScript errors).
+- [ ] `npm run build` succeeds with zero errors.
+
+### 2. Design Critic Scoring Protocol (Threshold >= 8.5 / 10.0)
+- [ ] Quality evaluation score meets or exceeds 8.5 / 10.0:
+  - 4.0 pts: Complete elimination of search filter text collision (controls clean and isolated).
+  - 3.5 pts: Perfect flexbox spacing in top navbar right tray without window-edge compression.
+  - 2.5 pts: Code safety (zero broken markup tags, zero state mutations to course listings or XP values).

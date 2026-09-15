@@ -261,17 +261,17 @@ export const NustCurriculumView: React.FC<NustCurriculumViewProps> = ({
         </div>
       </div>
 
-      {/* Filter and Search Bar - Flat 1px borders */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-zinc-900/60 p-3 rounded-lg border border-zinc-800">
-        {/* Search input */}
-        <div className="relative flex-1">
+      {/* Filter and Search Bar - Flat 1px borders with dedicated flex spacing */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4 bg-zinc-900/60 p-3 sm:p-4 rounded-lg border border-zinc-800">
+        {/* Search input with proportional flexing and minimum width guarantee */}
+        <div className="relative flex-1 min-w-[220px]">
           <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search by course code (e.g. CS110, CS212), name, or topics..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-md pl-9 pr-8 py-1.5 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700 transition-colors"
+            className="w-full min-h-[40px] bg-zinc-950 border border-zinc-800 rounded-md pl-9 pr-8 py-2 text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700 transition-colors"
           />
           {searchQuery && (
             <button
@@ -279,7 +279,7 @@ export const NustCurriculumView: React.FC<NustCurriculumViewProps> = ({
                 soundManager.playClick();
                 setSearchQuery('');
               }}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 text-xs transition-colors p-0.5"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 text-xs transition-colors p-1 cursor-pointer"
               title="Clear search"
               aria-label="Clear search"
             >
@@ -288,21 +288,21 @@ export const NustCurriculumView: React.FC<NustCurriculumViewProps> = ({
           )}
         </div>
 
-        {/* Filter controls */}
-        <div className="flex flex-wrap items-center gap-2">
+        {/* Filter controls - uncompressed interactive cluster */}
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 sm:gap-3 shrink-0">
           {/* C++ Filter Toggle */}
           <button
             onClick={() => {
               soundManager.playClick();
               setFilterCppOnly(!filterCppOnly);
             }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors border ${
+            className={`min-h-[40px] flex items-center gap-2 px-3.5 py-2 rounded-md text-xs font-medium whitespace-nowrap shrink-0 transition-colors border cursor-pointer select-none ${
               filterCppOnly
                 ? 'bg-zinc-800 border-zinc-700 text-cyan-300 font-semibold shadow-sm'
                 : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-zinc-200'
             }`}
           >
-            <Code2 className="w-3.5 h-3.5" />
+            <Code2 className="w-3.5 h-3.5 shrink-0" />
             <span>C++ Courses Only</span>
           </button>
 
@@ -314,7 +314,7 @@ export const NustCurriculumView: React.FC<NustCurriculumViewProps> = ({
               const val = e.target.value;
               setSelectedSemester(val === 'all' ? 'all' : Number(val));
             }}
-            className="bg-zinc-950 border border-zinc-800 text-xs rounded-md px-3 py-1.5 text-zinc-300 focus:outline-none focus:border-zinc-700"
+            className="min-h-[40px] bg-zinc-950 border border-zinc-800 text-xs rounded-md px-3.5 py-2 text-zinc-300 focus:outline-none focus:border-zinc-700 shrink-0 cursor-pointer transition-colors"
           >
             <option value="all">All 8 Semesters</option>
             {NUST_BSCS_CURRICULUM.map((s) => (
@@ -385,7 +385,7 @@ export const NustCurriculumView: React.FC<NustCurriculumViewProps> = ({
                         </div>
 
                         {course.usesCpp && (
-                          <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded font-medium bg-zinc-800 text-emerald-400 border border-zinc-700/60 shrink-0">
+                          <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-md font-medium bg-zinc-800 text-emerald-400 border border-zinc-700/60 shrink-0">
                             <Code2 className="w-3 h-3" /> C++ Core
                           </span>
                         )}
@@ -420,7 +420,7 @@ export const NustCurriculumView: React.FC<NustCurriculumViewProps> = ({
                                 {course.cppTopics.map((topic, idx) => (
                                   <span
                                     key={`${course.code}-topic-${idx}-${topic}`}
-                                    className="text-[10px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 font-mono border border-zinc-700/60"
+                                    className="text-[10px] px-2 py-0.5 rounded-md bg-zinc-800 text-zinc-300 font-mono border border-zinc-700/60"
                                   >
                                     {topic}
                                   </span>
