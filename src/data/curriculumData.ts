@@ -296,6 +296,7 @@ int main() {
           hook: 'Every useful program makes decisions. A grading app needs to check whether a score is an A, B, or C. A login form needs to check whether the password is correct. Control structures are how you encode those decisions in C++.',
           mentalModel: 'Think of a control structure as a road with forks. Your program evaluates a condition (true or false) and takes the correct fork. If the first condition is true, it goes left. If not, it checks the next fork. If none match, it takes the default road (else).',
           explanation: [
+            'From this lesson onward, the snippets include `using namespace std;` after `#include <iostream>`. This lets you write `cout` and `endl` directly instead of `std::cout` and `std::endl` — both styles are correct; `using namespace std;` just saves you from typing `std::` every time.',
             '`if (condition)` runs a block of code only when the condition is true.',
             '`else if (condition)` is checked only when all previous conditions were false. You can chain as many as you need.',
             '`else` is the fallback — it runs when no previous condition matched.',
@@ -377,7 +378,7 @@ int main() {
             content: 'In `a && b`, if `a` is false, C++ never evaluates `b` — the result is already determined. This is called short-circuit evaluation. It is a useful performance trick: put the cheaper or most-likely-to-fail condition first.',
           },
           interactivePrompt: {
-            task: 'Write a program that reads a student\'s score and prints the corresponding letter grade (A: 90-100, B: 80-89, C: 70-79, D: 60-69, F: below 60).',
+            task: 'Write a program that assigns a student\'s score to a variable and prints the corresponding letter grade (A: 90-100, B: 80-89, C: 70-79, D: 60-69, F: below 60). Use the hardcoded score below and try changing it to test each grade.',
             hint: 'Use if / else if / else with >= comparisons. Start with the highest grade first.',
             starterCode: `#include <iostream>
 using namespace std;
@@ -485,7 +486,7 @@ int main() {
     while (balance >= 20.0) {
         balance -= 20.0;
         transactionCount++;
-        cout << "  Transaction " << transactionCount << " — Balance: $" << balance << endl;
+        cout << "  Transaction " << transactionCount << " - Balance: $" << balance << endl;
     }
 
     return 0;
