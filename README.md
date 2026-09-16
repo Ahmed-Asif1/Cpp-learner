@@ -82,8 +82,13 @@ npm run dev
 ### Running Verification Tests
 
 ```bash
+# Run C++ simulator engine unit tests
 npm test
+
+# Run complete 4-tier E2E and cross-device test suite
+npm run test:all
 ```
+For an in-depth breakdown of the 4-tier test architecture and coverage, see [docs/TESTING.md](docs/TESTING.md).
 
 ### Building for Production
 
